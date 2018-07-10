@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 
@@ -21,12 +21,15 @@ class LoginPage extends Component {
 
   componentDidMount() {
     this.props.dispatch(clearError());
+    
   }
 
   
   componentWillReceiveProps(nextProps) {
+    console.log("user:",nextProps);
+
     if (nextProps.user.userName) {
-      this.props.history.push('/user');
+      this.props.history.push('/adminHome');
     }
   }
 
