@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import AdminNav from '../../../components/Nav/AdminNav';
+import UpdateTeacher from './UpdateTeacher'
 
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 import { triggerLogout } from '../../../redux/actions/loginActions';
 
+// material ui
+import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -37,9 +40,8 @@ class ViewTeachers extends Component {
           <h1 id="welcome">
             View Teachers
           </h1>
-          <Link to="/updateTeacher">
-            Update Teacher
-          </Link>
+          <Button>Edit</Button>
+          <UpdateTeacher />
         </div>
       );
     }

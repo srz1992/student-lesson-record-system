@@ -26,10 +26,16 @@ class LoginPage extends Component {
 
   
   componentWillReceiveProps(nextProps) {
-    console.log("user:",nextProps);
+    console.log("nextProps.user:",nextProps.user);
 
-    if (nextProps.user.userName) {
+    if (nextProps.user.userName && nextProps.user.userType === 'admin') {
       this.props.history.push('/adminHome');
+    }
+    else if (nextProps.user.userName && nextProps.user.userType === 'teacher'){
+      this.props.history.push('/teacherHome');
+    }
+    else if (nextProps.user.userName && nextProps.user.userType === 'student'){
+      this.props.history.push('/studentHome');
     }
   }
 

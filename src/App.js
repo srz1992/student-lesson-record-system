@@ -110,6 +110,9 @@ const App = () => (
           path="/editLessonRecord"
           component={EditLessonRecord}
         />
+
+
+        {/* Student Routes */}
         <Route
           path="/studentHome"
           component={StudentHome}

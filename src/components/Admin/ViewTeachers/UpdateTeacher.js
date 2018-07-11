@@ -33,18 +33,15 @@ class ViewTeachers extends Component {
 
     if (this.props.user.userName) {
       content = (
-        <div>
           <h1 id="welcome">
             Update Teacher
           </h1>
           
-        </div>
       );
     }
 
     return (
       <div>
-        <AdminNav />
         { content }
       </div>
     );
