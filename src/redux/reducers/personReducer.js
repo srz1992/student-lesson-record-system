@@ -13,7 +13,7 @@ const studentProfile = (state = {studentCalled: false}, action) => {
       
       return {...state, studentCalled: false}
     
-    case PERSON_ACTIONS.UPDATE_COMPLETE:
+    case PERSON_ACTIONS.UPDATE_STUDENT_COMPLETE:
       console.log('updating studentCalled to false');
       return {...action.student, studentCalled: false}
       

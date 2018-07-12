@@ -26,7 +26,7 @@ function* updateStudent(action) {
     const student = action.payload;
     console.log('student is:', student);
     yield putStudent(student);
-    yield put({type:PERSON_ACTIONS.UPDATE_COMPLETE});
+    yield put({type:PERSON_ACTIONS.UPDATE_STUDENT_COMPLETE});
 
   } catch(error){
     console.log('error in updateStudent Saga:', error);

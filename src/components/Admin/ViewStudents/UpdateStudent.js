@@ -100,7 +100,7 @@ class UpdateStudent extends Component {
           <Paper>
               <div><label>ID: &emsp;{this.props.student.studentProfile.id}</label></div>
               <div><label>Name: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('name')} defaultValue={this.props.student.studentProfile.name} /></label></div>
-              <div><label>Date of Birth: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('date_of_birth')} type="date" defaultValue={Date(Date.parse(this.props.student.studentProfile.date_of_birth))} /></label></div>
+              <div><label>Date of Birth: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('date_of_birth')} type="date" defaultValue={this.props.student.studentProfile.date_of_birth.split('T')[0]} /></label></div>
               <div><label>Hometown: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('hometown')} defaultValue={this.props.student.studentProfile.hometown} /></label></div>
               <div><label>Hobbies: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('hobbies')} multiline rowsMax="2" defaultValue={this.props.student.studentProfile.hobbies} /></label></div>
               <div><label>Notes: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('notes')} multiline rowsMax="4" defaultValue={this.props.student.studentProfile.notes} /></label></div>
