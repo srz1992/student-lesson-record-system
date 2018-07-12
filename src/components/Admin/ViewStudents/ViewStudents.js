@@ -23,15 +23,25 @@ class ViewTeachers extends Component {
   constructor(props){
     super(props);
     this.state = {
-      studentToGet: null
+      targetStudent: null,
+      editHidden: true,
+      studentToUpdate: {
+        id: this.props.student.studentProfile.id,
+        name: this.props.student.studentProfile.name,
+        date_of_birth: this.props.student.studentProfile.date_of_birth,
+        hometown: this.props.student.studentProfile.hometown,
+        hobbies: this.props.student.studentProfile.hobbies,
+        notes: this.props.student.studentProfile.notes
+      }
     }
   }
   
   componentDidMount() {
-    this.props.dispatch({ type: PERSON_ACTIONS.FETCH_STUDENT });
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }    
+    console.log('this.state.studentToUpdate:', this.state.studentToUpdate);
+    
   }
 
   componentDidUpdate() {
@@ -47,22 +57,53 @@ class ViewTeachers extends Component {
 
   handleInputChangeFor = propName => (event) => {
     this.setState({
+      ...this.state,
       [propName]: event.target.value
     })    
+    console.log(this.state);
+    
   }
 
-  
+  handleUpdateInputChangeFor = propName => (event) => {
+    this.setState({
+      ...this.state,
+      studentToUpdate: {
+        ...this.state.studentToUpdate,
+        [propName]: event.target.value}
+    })    
+    console.log(this.state);
+    
+  }
 
   getStudentById = (id) =>{
+    this.setState({...this.state, studentCalled: true});
     let action = { type: PERSON_ACTIONS.FETCH_STUDENT, payload: id };
-    console.log(action);
-    
     this.props.dispatch(action);
+  }
+
+
+  editStudent = () =>{
+    
+    let action = {type: PERSON_ACTIONS.UPDATE_STUDENT_CALLED, payload: this.props.student.studentProfile}
+    this.setState({...this.state, 
+      editHidden: false,
+      studentToUpdate: {
+        id: this.props.student.studentProfile.id,
+        name: this.props.student.studentProfile.name,
+        date_of_birth: this.props.student.studentProfile.date_of_birth,
+        hometown: this.props.student.studentProfile.hometown,
+        hobbies: this.props.student.studentProfile.hobbies,
+        notes: this.props.student.studentProfile.notes
+      }})
+      this.props.dispatch(action);
+      console.log(this.state.studentToUpdate);
+      
   }
 
   render() {
     let content = null;
-
+    console.log(this.props.student);
+    
     if (this.props.user.userName && this.props.user.userType === 'admin') {
       content = (
         <div>
@@ -70,12 +111,19 @@ class ViewTeachers extends Component {
           <h1 id="welcome">
             View Students
           </h1>
-          <TextField onChange={this.handleInputChangeFor('studentToGet')} />
-          <Button onClick={()=>this.getStudentById(this.state.studentToGet)}>Search</Button>
-          
-          
-          
-          <UpdateStudent />
+          <TextField onChange={this.handleInputChangeFor('targetStudent')} />
+          <Button onClick={()=>this.getStudentById(this.state.targetStudent)}>Search</Button>
+          {this.props.student.studentProfile.studentCalled && <Paper>
+            <pre>{JSON.stringify(this.props.student)}</pre>
+            <p>ID: {this.props.student.studentProfile.id}</p>
+            <p>Name: {this.props.student.studentProfile.name}</p>
+            <p>Date of Birth: {this.props.student.studentProfile.date_of_birth}</p>
+            <p>Hometown: {this.props.student.studentProfile.hometown}</p>
+            <p>Hobbies: {this.props.student.studentProfile.hobbies}</p>
+            <p>Notes: {this.props.student.studentProfile.notes}</p>
+            <Button onClick={()=>this.editStudent()}>Edit</Button>
+          </Paper>}
+          {!this.state.editHidden && <UpdateStudent />}
         </div>
       );
     }
