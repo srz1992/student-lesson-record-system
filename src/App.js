@@ -8,7 +8,6 @@ import {
 
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
-import RegisterPage from './components/RegisterPage/RegisterPage';
 import InfoPage from './components/InfoPage/InfoPage';
 
 // admin pages
@@ -16,9 +15,7 @@ import AdminHome from './components/Admin/AdminHome/AdminHome';
 import RegisterStudent from './components/Admin/RegisterStudent/RegisterStudent';
 import RegisterTeacher from './components/Admin/RegisterTeacher/RegisterTeacher';
 import ViewStudents from './components/Admin/ViewStudents/ViewStudents';
-import UpdateStudent from './components/Admin/ViewStudents/UpdateStudent';
 import AdminViewTeachers from './components/Admin/ViewTeachers/ViewTeachers';
-import UpdateTeacher from './components/Admin/ViewTeachers/UpdateTeacher';
 
 // teacher pages
 import TeacherHome from './components/Teacher/TeacherHome/TeacherHome';
@@ -32,7 +29,7 @@ import EditLessonRecord from './components/Teacher/SearchStudents/EditLessonReco
 import StudentHome from './components/Student/StudentHome/StudentHome';
 import StudentBookedLessons from './components/Student/BookedLessons/BookedLessons';
 import LessonRecords from './components/Student/LessonRecords/LessonRecords';
-import BookLessons from './components/Student/BookLesson/BookLesson';
+import BookLesson from './components/Student/BookLesson/BookLesson';
 import StudentViewTeachers from './components/Student/ViewTeachers/ViewTeachers';
 
 
@@ -51,10 +48,7 @@ const App = () => (
           path="/home"
           component={LoginPage}
         />
-        <Route
-          path="/register"
-          component={RegisterPage}
-        />
+        
         <Route
           path="/adminHome"
           component={AdminHome}
@@ -72,19 +66,9 @@ const App = () => (
           component={ViewStudents}
         />
         <Route
-          path="/updateStudent"
-          component={UpdateStudent}
-        />
-        <Route
           path="/viewTeachers"
           component={AdminViewTeachers}
         />
-        <Route
-          path="/updateTeacher"
-          component={UpdateTeacher}
-        />
-
-
         {/* Teacher Routes */}
         <Route
           path="/teacherHome"
@@ -126,8 +110,8 @@ const App = () => (
           component={LessonRecords}
         />
         <Route
-          path="/bookLessons"
-          component={BookLessons}
+          path="/bookLesson"
+          component={BookLesson}
         />
         <Route
           path="/studentViewTeachers"

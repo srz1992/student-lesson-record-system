@@ -6,15 +6,26 @@ const StudentNav = () => (
     <div>
       <ul>
         <li>
-          <Link to="/user">
-            User Home
+          <Link to="/studentHome">
+            Home
           </Link>
         </li>
         <li>
-          <Link to="/info">
-            Info Page
+          <Link to="/bookLesson">
+            Book Lesson
           </Link>
         </li>
+        <li>
+            <Link to ="/studentBookedLessons">
+          View Bookings
+          </Link>
+        </li>
+        <li>
+            <Link to ="/studentViewTeachers">
+          View Teachers
+          </Link>
+        </li>
+        
       </ul>
     </div>
   </div>

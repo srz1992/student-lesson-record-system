@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import AdminNav from '../../Nav/AdminNav';
-import UpdateStudent from './UpdateStudent'
 import StudentProfile from './StudentProfile'
 
 import {USER_ACTIONS} from '../../../redux/actions/userActions';

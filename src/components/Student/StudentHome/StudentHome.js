@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import TeacherNav from '../../../components/Nav/TeacherNav';
+import StudentNav from '../../../components/Nav/StudentNav';
 
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 import { triggerLogout } from '../../../redux/actions/loginActions';
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-class TeacherHome extends Component {
+class StudentHome extends Component {
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
   }
@@ -49,7 +49,7 @@ class TeacherHome extends Component {
 
     return (
       <div>
-        <TeacherNav />
+        <StudentNav />
         { content }
       </div>
     );
@@ -57,5 +57,5 @@ class TeacherHome extends Component {
 }
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(TeacherHome);
+export default connect(mapStateToProps)(StudentHome);
 

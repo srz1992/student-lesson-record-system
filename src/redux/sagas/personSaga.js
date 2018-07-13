@@ -1,7 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { PERSON_ACTIONS } from '../actions/personActions';
 import { callStudent, putStudent, callTeacher, putTeacher } from '../requests/personRequests';
-import UpdateTeacher from '../../components/Admin/ViewTeachers/UpdateTeacher';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchStudent(action) {

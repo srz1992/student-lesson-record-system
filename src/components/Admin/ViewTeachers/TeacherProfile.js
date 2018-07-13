@@ -64,7 +64,7 @@ class TeacherProfile extends Component {
 
   editTeacher = () =>{
     
-    let action = {type: PERSON_ACTIONS.TEACHER, payload: this.props.teacher.teacherProfile}
+    let action = {type: PERSON_ACTIONS.UPDATE_TEACHER_CALLED, payload: this.props.teacher.teacherProfile}
     this.setState({...this.state, 
       profileHidden: true,
       editHidden: false,
@@ -74,7 +74,6 @@ class TeacherProfile extends Component {
         date_of_birth: this.props.teacher.teacherProfile.date_of_birth,
         hometown: this.props.teacher.teacherProfile.hometown,
         hobbies: this.props.teacher.teacherProfile.hobbies,
-        notes: this.props.teacher.teacherProfile.notes
       }})
       this.props.dispatch(action);
       console.log(this.state.teacherToUpdate);
@@ -99,13 +98,12 @@ class TeacherProfile extends Component {
           <div>
           {!this.state.profileHidden && <Paper>
             <h1>Teacher Profile</h1>
-            <pre>{JSON.stringify(this.props.teacher)}</pre>
+            {/* <pre>{JSON.stringify(this.props.teacher)}</pre> */}
             <p>ID: {this.props.teacher.teacherProfile.id}</p>
             <p>Name: {this.props.teacher.teacherProfile.name}</p>
-            <p>Date of Birth: {this.props.teacher.teacherProfile.date_of_birth}</p>
+            <p>Date of Birth: {this.props.teacher.teacherProfile.date_of_birth.split('T')[0]}</p>
             <p>Hometown: {this.props.teacher.teacherProfile.hometown}</p>
             <p>Hobbies: {this.props.teacher.teacherProfile.hobbies}</p>
-            <p>Notes: {this.props.teacher.teacherProfile.notes}</p>
             <Button onClick={()=>this.editTeacher()}>Edit</Button>
           </Paper>}
 
@@ -115,7 +113,6 @@ class TeacherProfile extends Component {
               <div><label>Date of Birth: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('date_of_birth')} type="date" defaultValue={this.props.teacher.teacherProfile.date_of_birth.split('T')[0]} /></label></div>
               <div><label>Hometown: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('hometown')} defaultValue={this.props.teacher.teacherProfile.hometown} /></label></div>
               <div><label>Hobbies: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('hobbies')} multiline rowsMax="2" defaultValue={this.props.teacher.teacherProfile.hobbies} /></label></div>
-              <div><label>Notes: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('notes')} multiline rowsMax="4" defaultValue={this.props.teacher.teacherProfile.notes} /></label></div>
 
               <Button onClick={()=>{this.updateTeacherById(this.state.teacherToUpdate);}}>Update</Button>
             </Paper>}

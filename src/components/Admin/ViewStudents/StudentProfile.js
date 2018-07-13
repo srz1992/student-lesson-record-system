@@ -102,7 +102,7 @@ class StudentProfile extends Component {
             {/* <pre>{JSON.stringify(this.props.student)}</pre> */}
             <p>ID: {this.props.student.studentProfile.id}</p>
             <p>Name: {this.props.student.studentProfile.name}</p>
-            <p>Date of Birth: {this.props.student.studentProfile.date_of_birth}</p>
+            <p>Date of Birth: {this.props.student.studentProfile.date_of_birth.split('T')[0]}</p>
             <p>Hometown: {this.props.student.studentProfile.hometown}</p>
             <p>Hobbies: {this.props.student.studentProfile.hobbies}</p>
             <p>Notes: {this.props.student.studentProfile.notes}</p>

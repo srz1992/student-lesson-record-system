@@ -31,15 +31,7 @@ router.get('/teacher/:id', (req,res)=>{
         console.log('error retrieving teacher profile:', error);
         res.sendStatus(500);     
     })
-    
 })
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
-});
 
 router.put('/student/:id', (req, res) =>{
     console.log('req.body:', req.body);
@@ -61,7 +53,7 @@ router.put('/student/:id', (req, res) =>{
 })
 
 router.put('/teacher/:id', (req, res)=>{
-    console.log('req.body:', req.body);
+    console.log('update teacher route req.body:', req.body);
     const id = req.body.id;
     const name = req.body.name;
     const date_of_birth = req.body.date_of_birth;

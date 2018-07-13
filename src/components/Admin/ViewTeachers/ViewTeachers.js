@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import AdminNav from '../../Nav/AdminNav';
-import UpdateTeacher from './UpdateTeacher'
 import TeacherProfile from './TeacherProfile'
 
 import {USER_ACTIONS} from '../../../redux/actions/userActions';
@@ -108,9 +107,18 @@ class ViewTeachers extends Component {
           </h1>
           <label>Teacher ID:&emsp;<TextField onChange={this.handleInputChangeFor('targetTeacher')} /></label>
           <Button onClick={()=>this.getTeacherById(this.state.targetTeacher)}>Search</Button>
-          {this.props.teacher.teacherProfile.teacherCalled && <TeacherProfile editTeacher={this.editTeacher} />}
-          {!this.state.editHidden && <UpdateTeacher toggleEditHiddenTrue={this.toggleEditHiddenTrue} />}
+          {this.props.teacher.teacherProfile.teacherCalled && <TeacherProfile targetTeacher={this.state.targetTeacher} getTeacherById={this.getTeacherById} editTeacher={this.editTeacher} />}
         </div>
+
+          // <div>
+          // {/* <pre>{JSON.stringify(this.props.student)}</pre> */}
+          // <h1 id="welcome">
+          //   View Students
+          // </h1>
+          // <label>Student ID:&emsp;<TextField onChange={this.handleInputChangeFor('targetStudent')} /></label>
+          // <Button onClick={()=>this.getStudentById(this.state.targetStudent)}>Search</Button>
+          // {this.props.student.studentProfile.studentCalled && <StudentProfile getStudentById={this.getStudentById} targetStudent={this.state.targetStudent} editStudent={this.editStudent} />}
+          // </div>
       );
     }
 

@@ -10,7 +10,7 @@ export function callStudent(id) {
 }
 
 export function putStudent(student) {
-  console.log('in updateStudent with student:', student);
+  console.log('in putStudent with student:', student);
   return axios.put(`api/person/student/${student.user_id}`, student)
 }
 
@@ -21,9 +21,15 @@ export function callTeacher(id){
       console.log('response.data:', response.data);
       return response.data})
     .catch((error) =>{
-      throw error.resposne || error;})
+      throw error.response || error;})
 }
 
 export function putTeacher(teacher){
-  console.log
+  console.log('in putTeacher with teacher:', teacher);
+  return axios.put(`api/person/teacher/${teacher.user_id}`, teacher)
+  .then((response)=>{
+    console.log('successfully putTeacher:', response);    
+  })
+  .catch((error)=>{
+    throw error.response || error})
 }
