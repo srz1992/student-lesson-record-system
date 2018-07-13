@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import AdminNav from '../../Nav/AdminNav';
 import StudentProfile from './StudentProfile'
@@ -9,7 +9,7 @@ import {USER_ACTIONS} from '../../../redux/actions/userActions';
 import {PERSON_ACTIONS} from '../../../redux/actions/personActions';
 import { triggerLogout } from '../../../redux/actions/loginActions';
 
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 

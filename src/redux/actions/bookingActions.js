@@ -7,6 +7,10 @@ export const BOOKING_ACTIONS = {
     // bookings
     POST_BOOKING: 'POST_BOOKING',
     SET_BOOKING: 'SET_BOOKING',
+
+    //student profile id
+    FETCH_STUDENT_ID: 'FETCH_STUDENT_ID',
+    SET_STUDENT_ID: 'FETCH_STUDENT_ID',
     
     // bookings list
     FETCH_BOOKINGS_LIST: 'FETCH_BOOKINGS_LIST',
