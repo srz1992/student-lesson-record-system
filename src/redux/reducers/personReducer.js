@@ -11,11 +11,11 @@ const studentProfile = (state = {studentCalled: false}, action) => {
     case PERSON_ACTIONS.UPDATE_STUDENT_CALLED:
       console.log(state);
       
-      return {...state, studentCalled: false}
+      return {...state, studentCalled: true}
     
     case PERSON_ACTIONS.UPDATE_STUDENT_COMPLETE:
       console.log('updating studentCalled to false');
-      return {...action.student, studentCalled: false}
+      return {...state, studentCalled: true}
       
     
       default:

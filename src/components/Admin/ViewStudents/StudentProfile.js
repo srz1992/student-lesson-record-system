@@ -15,12 +15,12 @@ const mapStateToProps = state => ({
   student: state.person
 });
 
-class UpdateStudent extends Component {
+class StudentProfile extends Component {
   
   constructor(props){
     super(props);
     this.state = {
-      targetStudent: null,
+      profileHidden: false,
       editHidden: true,
       studentToUpdate: {
         id: this.props.student.studentProfile.id,
@@ -62,18 +62,32 @@ class UpdateStudent extends Component {
     
   }
 
-  getStudentById = (id) =>{
-    this.setState({...this.state, studentCalled: true});
-    let action = { type: PERSON_ACTIONS.FETCH_STUDENT, payload: id };
-    this.props.dispatch(action);
+  editStudent = () =>{
+    
+    let action = {type: PERSON_ACTIONS.UPDATE_STUDENT_CALLED, payload: this.props.student.studentProfile}
+    this.setState({...this.state, 
+      profileHidden: true,
+      editHidden: false,
+      studentToUpdate: {
+        id: this.props.student.studentProfile.id,
+        name: this.props.student.studentProfile.name,
+        date_of_birth: this.props.student.studentProfile.date_of_birth,
+        hometown: this.props.student.studentProfile.hometown,
+        hobbies: this.props.student.studentProfile.hobbies,
+        notes: this.props.student.studentProfile.notes
+      }})
+      this.props.dispatch(action);
+      console.log(this.state.studentToUpdate);
+      
   }
 
+
   updateStudentById = (student) => {
-    this.setState({...this.state, editHidden: false})
+    this.setState({...this.state, editHidden: true, profileHidden: false})
     let action = { type: PERSON_ACTIONS.UPDATE_STUDENT, payload: student };
     console.log(action);
     this.props.dispatch(action);
-    this.props.toggleEditHiddenTrue();
+    this.props.getStudentById(this.props.targetStudent);
   }
 
 
@@ -83,10 +97,19 @@ class UpdateStudent extends Component {
     if (this.props.user.userName && this.props.user.userType === 'admin') {
       content = (
           <div>
-          <h1 id="welcome">
-            Update Student
-          </h1>
-          <Paper>
+          {!this.state.profileHidden && <Paper>
+            <h1>Student Profile</h1>
+            {/* <pre>{JSON.stringify(this.props.student)}</pre> */}
+            <p>ID: {this.props.student.studentProfile.id}</p>
+            <p>Name: {this.props.student.studentProfile.name}</p>
+            <p>Date of Birth: {this.props.student.studentProfile.date_of_birth}</p>
+            <p>Hometown: {this.props.student.studentProfile.hometown}</p>
+            <p>Hobbies: {this.props.student.studentProfile.hobbies}</p>
+            <p>Notes: {this.props.student.studentProfile.notes}</p>
+            <Button onClick={()=>this.editStudent()}>Edit</Button>
+          </Paper>}
+
+          {!this.state.editHidden && <Paper>
               <div><label>ID: &emsp;{this.props.student.studentProfile.id}</label></div>
               <div><label>Name: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('name')} defaultValue={this.props.student.studentProfile.name} /></label></div>
               <div><label>Date of Birth: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('date_of_birth')} type="date" defaultValue={this.props.student.studentProfile.date_of_birth.split('T')[0]} /></label></div>
@@ -95,7 +118,7 @@ class UpdateStudent extends Component {
               <div><label>Notes: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('notes')} multiline rowsMax="4" defaultValue={this.props.student.studentProfile.notes} /></label></div>
 
               <Button onClick={()=>{this.updateStudentById(this.state.studentToUpdate);}}>Update</Button>
-            </Paper>
+            </Paper>}
             </div>
       );
     }
@@ -109,4 +132,4 @@ class UpdateStudent extends Component {
 }
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(UpdateStudent);
+export default connect(mapStateToProps)(StudentProfile);

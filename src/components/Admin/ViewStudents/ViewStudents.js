@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import AdminNav from '../../Nav/AdminNav';
 import UpdateStudent from './UpdateStudent'
+import StudentProfile from './StudentProfile'
 
 import {USER_ACTIONS} from '../../../redux/actions/userActions';
 import {PERSON_ACTIONS} from '../../../redux/actions/personActions';
@@ -25,14 +26,7 @@ class ViewTeachers extends Component {
     this.state = {
       targetStudent: null,
       editHidden: true,
-      studentToUpdate: {
-        id: this.props.student.studentProfile.id,
-        name: this.props.student.studentProfile.name,
-        date_of_birth: this.props.student.studentProfile.date_of_birth,
-        hometown: this.props.student.studentProfile.hometown,
-        hobbies: this.props.student.studentProfile.hobbies,
-        notes: this.props.student.studentProfile.notes
-      }
+      
     }
   }
   
@@ -82,23 +76,9 @@ class ViewTeachers extends Component {
   }
 
 
-  editStudent = () =>{
-    
-    let action = {type: PERSON_ACTIONS.UPDATE_STUDENT_CALLED, payload: this.props.student.studentProfile}
-    this.setState({...this.state, 
-      editHidden: false,
-      studentToUpdate: {
-        id: this.props.student.studentProfile.id,
-        name: this.props.student.studentProfile.name,
-        date_of_birth: this.props.student.studentProfile.date_of_birth,
-        hometown: this.props.student.studentProfile.hometown,
-        hobbies: this.props.student.studentProfile.hobbies,
-        notes: this.props.student.studentProfile.notes
-      }})
-      this.props.dispatch(action);
-      console.log(this.state.studentToUpdate);
-      
-  }
+  
+
+  
 
   render() {
     let content = null;
@@ -111,19 +91,9 @@ class ViewTeachers extends Component {
           <h1 id="welcome">
             View Students
           </h1>
-          <TextField onChange={this.handleInputChangeFor('targetStudent')} />
+          <label>Student ID:&emsp;<TextField onChange={this.handleInputChangeFor('targetStudent')} /></label>
           <Button onClick={()=>this.getStudentById(this.state.targetStudent)}>Search</Button>
-          {this.props.student.studentProfile.studentCalled && <Paper>
-            <pre>{JSON.stringify(this.props.student)}</pre>
-            <p>ID: {this.props.student.studentProfile.id}</p>
-            <p>Name: {this.props.student.studentProfile.name}</p>
-            <p>Date of Birth: {this.props.student.studentProfile.date_of_birth}</p>
-            <p>Hometown: {this.props.student.studentProfile.hometown}</p>
-            <p>Hobbies: {this.props.student.studentProfile.hobbies}</p>
-            <p>Notes: {this.props.student.studentProfile.notes}</p>
-            <Button onClick={()=>this.editStudent()}>Edit</Button>
-          </Paper>}
-          {!this.state.editHidden && <UpdateStudent />}
+          {this.props.student.studentProfile.studentCalled && <StudentProfile getStudentById={this.getStudentById} targetStudent={this.state.targetStudent} editStudent={this.editStudent} />}
         </div>
       );
     }
