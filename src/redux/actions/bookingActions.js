@@ -1,0 +1,14 @@
+export const BOOKING_ACTIONS = {
+   
+    // teacher list
+    FETCH_TEACHER_LIST: 'FETCH_TEACHER_LIST',
+    SET_TEACHER_LIST: 'SET_TEACHER_LIST',
+
+    // bookings
+    POST_BOOKING: 'POST_BOOKING',
+    SET_BOOKING: 'SET_BOOKING',
+    
+    // bookings list
+    FETCH_BOOKINGS_LIST: 'FETCH_BOOKINGS_LIST',
+    SET_BOOKINGS_LIST: 'SET_BOOKINGS_LIST'
+}

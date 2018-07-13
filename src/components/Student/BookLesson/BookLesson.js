@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import StudentNav from '../../Nav/StudentNav';
 
 import {USER_ACTIONS} from '../../../redux/actions/userActions';
-import {PERSON_ACTIONS} from '../../../redux/actions/personActions';
+import {BOOKING_ACTIONS} from '../../../redux/actions/bookingActions';
 import { triggerLogout } from '../../../redux/actions/loginActions';
 
 import Paper from '@material-ui/core/Paper';
@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem/MenuItem'
 
 const mapStateToProps = state => ({
   user: state.user,
-  teacher: state.person
+  booking: state.booking
 });
 
 class BookLesson extends Component {
@@ -40,8 +40,7 @@ class BookLesson extends Component {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }    
-    console.log('this.state.teacherToUpdate:', this.state.teacherToUpdate);
-    
+    this.getTeacherList();    
   }
 
   componentDidUpdate() {
@@ -50,7 +49,10 @@ class BookLesson extends Component {
     }
   }
 
-  
+  getTeacherList = () => {
+      const action = {type: BOOKING_ACTIONS.FETCH_TEACHER_LIST};
+      this.props.dispatch(action);
+  }
 
   handleInputChangeFor = propName => (event) => {
        this.setState({
@@ -63,7 +65,6 @@ class BookLesson extends Component {
 
   render() {
     let content = null;
-    console.log(this.props.student);
     
     if (this.props.user.userName && this.props.user.userType === 'student') {
       content = (
@@ -80,15 +81,16 @@ class BookLesson extends Component {
                 select
                 className="teacherList"
                 label="Select Teacher"
-                // value={this.state.weightRange}
                 onChange={this.handleInputChangeFor('teacher_id')}
+                margin="normal"
             >
-          {this.state.teacherList.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {this.props.booking.teacherList.map(option => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.name}
             </MenuItem>
           ))}
         </TextField></label></div>
+        <pre>{JSON.stringify(this.props.booking.teacherList)}</pre>
         </Paper>
         </div>
       );
