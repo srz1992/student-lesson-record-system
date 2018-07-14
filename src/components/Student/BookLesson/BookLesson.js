@@ -68,16 +68,12 @@ class BookLesson extends Component {
         console.log('do I need this if statement?:', this.props.user);
         
         if (!this.props.user.isLoading && this.props.user.userName === null) {
-            const user = await this.fetchUser();
-            console.log('user:', user);
-            
-            await this.getTeacherList();
-            await this.getStudentProfileId(user)
+            await this.fetchUser();
         }
-        else {
+        
           await this.getTeacherList();
-          await this.getStudentProfileId(this.props.user.userId)
-        }
+        //   await this.getStudentProfileId(this.props.user.userId)
+        
   }
 
   fetchUser = () => {
@@ -101,17 +97,17 @@ class BookLesson extends Component {
           ...this.state,
           booking: {
               ...this.state.booking,
-              student_id: this.props.booking.booking.student_id[0].id,
+              student_id: this.props.user.secondId,
               [propName]: event.target.value}
         })
   }
 
-  getStudentProfileId = (user_id) => {
-    console.log('user_id:', user_id);
-    const action = {type:BOOKING_ACTIONS.FETCH_STUDENT_ID, payload: user_id}
-    this.props.dispatch(action);
-    return
-  }
+//   getStudentProfileId = (user_id) => {
+//     console.log('user_id:', user_id);
+//     const action = {type:BOOKING_ACTIONS.FETCH_STUDENT_ID, payload: user_id}
+//     this.props.dispatch(action);
+//     return
+//   }
 
   postBookingRequest = (booking) =>{
     console.log('in postBookingRequest with booking:', booking);
