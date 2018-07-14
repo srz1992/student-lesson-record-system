@@ -17,6 +17,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { BOOKING_ACTIONS } from '../../../redux/actions/bookingActions';
 
 
 const mapStateToProps = state => ({
@@ -75,7 +76,9 @@ class BookingRequests extends Component {
   }
 
   getTeacherById = (user_id) => {
-
+    console.log('in getTeacherById with user_id:', user_id); 
+    const action = {type: BOOKING_ACTIONS.FETCH_TEACHER_ID, payload: user_id}
+    this.props.dispatch(action);
   }
 
   getBookings = (teacher_id) =>{

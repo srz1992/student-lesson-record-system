@@ -11,7 +11,8 @@ passport.deserializeUser((id, done) => {
   pool.query('SELECT id, username, type FROM users WHERE id = $1', [id]).then((result) => {
     // Handle Errors
     const user = result && result.rows && result.rows[0];
-
+    console.log('strategy user is:', user);
+    
     if (!user) {
       // user not found
       done(null, false, { message: 'Incorrect credentials.' });

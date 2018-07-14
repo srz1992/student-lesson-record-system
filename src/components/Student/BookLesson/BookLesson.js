@@ -68,10 +68,16 @@ class BookLesson extends Component {
         console.log('do I need this if statement?:', this.props.user);
         
         if (!this.props.user.isLoading && this.props.user.userName === null) {
-            this.fetchUser();
+            const user = await this.fetchUser();
+            console.log('user:', user);
+            
+            await this.getTeacherList();
+            await this.getStudentProfileId(user)
         }
+        else {
           await this.getTeacherList();
           await this.getStudentProfileId(this.props.user.userId)
+        }
   }
 
   fetchUser = () => {
@@ -121,7 +127,7 @@ class BookLesson extends Component {
     if (this.props.user.userName && this.props.user.userType === 'student') {
       content = (
         <div>
-        <h1>Book Students</h1>
+        <h1>Book a Lesson</h1>
         <Paper>
             <h3>Please enter your desired date, time, and teacher</h3>
             <div><label>Teacher:&emsp;<Select

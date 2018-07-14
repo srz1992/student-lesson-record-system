@@ -20,6 +20,18 @@ export function callStudent(user_id) {
   })
 }
 
+export function callTeacherId(user_id){
+  console.log('in callTeacherId with:', user_id);
+  return axios.get(`api/booking/teacher/${user_id}`)
+  .then(response =>{
+    console.log('response.data:', response.data);
+    return response.data
+  })
+  .catch((error)=>{
+    throw error.response || error;
+  })
+}
+
 export function sendBooking(booking){
   console.log('in sendBooking with:', booking);
   return axios.post('api/booking/', booking)

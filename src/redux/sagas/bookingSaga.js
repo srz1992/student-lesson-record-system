@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { BOOKING_ACTIONS } from '../actions/bookingActions';
-import { callTeachers, callStudent, sendBooking } from '../requests/bookingRequests';
+import { callTeachers, callStudent, sendBooking, callTeacherId } from '../requests/bookingRequests';
 
 // get the list of Teachers from database
 function* fetchTeachers() {
@@ -41,10 +41,26 @@ function* postBooking(action){
     }
 }
 
+function* fetchTeacherId(action){
+    console.log('fetchTeacherId:', action);
+    const id = action.payload;
+    try {
+        const teacher = yield callTeacherId(id)
+        yield put({type:BOOKING_ACTIONS.SET_TEACHER_ID, teacher})
+    }
+    catch(error){
+        console.log('error fetching teacher ID');
+        
+    }
+    
+}
+
 function* personSaga() {
   yield takeLatest(BOOKING_ACTIONS.FETCH_TEACHER_LIST, fetchTeachers);
   yield takeLatest(BOOKING_ACTIONS.FETCH_STUDENT_ID, fetchStudent)
   yield takeLatest(BOOKING_ACTIONS.POST_BOOKING, postBooking)
+  yield takeLatest(BOOKING_ACTIONS.FETCH_TEACHER_ID, fetchTeacherId)
 }
+
 
 export default personSaga;

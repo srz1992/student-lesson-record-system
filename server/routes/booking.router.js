@@ -32,6 +32,17 @@ router.get('/student/:id', (req,res)=>{
    })
 })
 
+router.get('/teacher/:id', (req, res)=>{
+    console.log('in get call api/booking/teacher/:id for targetTeacher');
+    const user_id = req.params.id;
+    const queryText = `SELECT id, name FROM teacher WHERE user_id=$1`;
+    pool.query(queryText, [user_id])
+    .then((result)=>{
+        console.log('retrieved teacher from database:', result.rows);
+        
+    })
+})
+
 router.post('/', (req, res) =>{
     console.log('in post call for api/booking with req.body:', req.body);
     const student_id = req.body.student_id;
