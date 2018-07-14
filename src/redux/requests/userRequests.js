@@ -7,9 +7,7 @@ export function callUser() {
   };
 
   return axios.get('api/user', config)
-    .then(response => {
-      console.log('response.data:', response.data);
-      
+    .then(response => {      
       return response.data})
     .catch((error) => { throw error.response || error; });
 }

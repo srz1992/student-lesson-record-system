@@ -36,7 +36,7 @@ class TeacherHome extends Component {
           <h1
             id="welcome"
           >
-            Welcome, { this.props.user.userName }!
+            Welcome, teacher { this.props.user.userName }!
           </h1>
           <button
             onClick={this.logout}

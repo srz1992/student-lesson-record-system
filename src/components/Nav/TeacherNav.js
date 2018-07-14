@@ -6,15 +6,26 @@ const TeacherNav = () => (
     <div>
       <ul>
         <li>
-          <Link to="/user">
-            User Home
+          <Link to="/teacherHome">
+            Home
           </Link>
         </li>
         <li>
-          <Link to="/info">
-            Info Page
+          <Link to="/teacherBookedLessons">
+            Bookings
           </Link>
         </li>
+        <li>
+          <Link to="/bookingRequests">
+            Booking Requests
+          </Link>
+        </li>
+        <li>
+          <Link to="/searchStudents">
+            Search Students
+          </Link>
+        </li>
+
       </ul>
     </div>
   </div>

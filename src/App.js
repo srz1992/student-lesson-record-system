@@ -20,7 +20,7 @@ import AdminViewTeachers from './components/Admin/ViewTeachers/ViewTeachers';
 // teacher pages
 import TeacherHome from './components/Teacher/TeacherHome/TeacherHome';
 import TeacherBookedLessons from './components/Teacher/BookedLessons/BookedLessons';
-import LessonRequests from './components/Teacher/LessonRequests/LessonRequests';
+import BookingRequests from './components/Teacher/BookingRequests/BookingRequests';
 import SearchStudents from './components/Teacher/SearchStudents/SearchStudents';
 import LessonRecord from './components/Teacher/SearchStudents/LessonRecord';
 import EditLessonRecord from './components/Teacher/SearchStudents/EditLessonRecord';
@@ -79,8 +79,8 @@ const App = () => (
           component={TeacherBookedLessons}
         />
         <Route
-          path="/lessonRequests"
-          component={LessonRequests}
+          path="/bookingRequests"
+          component={BookingRequests}
         />
         <Route
           path="/searchStudents"

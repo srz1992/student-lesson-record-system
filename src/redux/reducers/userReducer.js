@@ -17,7 +17,6 @@ const userName = (state = null, action) => {
 const userType = (state = null, action) => {
   switch (action.type) {
     case USER_ACTIONS.SET_USER:
-      console.log('action.user:', action.user);
       return action.user.type || state;
     case USER_ACTIONS.UNSET_USER:
       return null;
@@ -29,7 +28,6 @@ const userType = (state = null, action) => {
 const userId = (state = null, action) => {
   switch (action.type) {
     case USER_ACTIONS.SET_USER:
-      console.log('action.user:', action.user);
       return action.user.id || state;
     case USER_ACTIONS.UNSET_USER:
       return null;

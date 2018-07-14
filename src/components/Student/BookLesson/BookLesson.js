@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -9,7 +8,6 @@ import StudentNav from '../../Nav/StudentNav';
 
 import {USER_ACTIONS} from '../../../redux/actions/userActions';
 import {BOOKING_ACTIONS} from '../../../redux/actions/bookingActions';
-import { triggerLogout } from '../../../redux/actions/loginActions';
 
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -38,6 +36,17 @@ const styles = theme => ({
       },
   });
 
+const todaysDate = () =>{
+    var x = new Date();
+    var y = x.getFullYear().toString();
+    var m = (x.getMonth() + 1).toString();
+    var d = x.getDate().toString();
+    (d.length == 1) && (d = '0' + d);
+    (m.length == 1) && (m = '0' + m);
+    var yyyymmdd = y + '-' + m + '-' + d;
+    return yyyymmdd;
+}
+
 class BookLesson extends Component {
   
   constructor(props){
@@ -46,7 +55,7 @@ class BookLesson extends Component {
         booking: {
             student_id: '',
             teacher_id: '',
-            date_made: Date(),
+            date_made: todaysDate(),
             requested_lesson_date: '',
             requested_lesson_time: '',
             status: 'Pending',
@@ -55,14 +64,20 @@ class BookLesson extends Component {
     }
   }
 
-  componentDidMount() {
-    if (!this.props.user.isLoading && this.props.user.userName === null) {
-      this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-    }    
-    this.getTeacherList();
-    this.getStudentProfileId(this.props.user.userId)    
+    componentDidMount = async() => {
+        console.log('do I need this if statement?:', this.props.user);
+        
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+            this.fetchUser();
+        }
+          await this.getTeacherList();
+          await this.getStudentProfileId(this.props.user.userId)
   }
 
+  fetchUser = () => {
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+  }
+  
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.history.push('home');
@@ -72,6 +87,7 @@ class BookLesson extends Component {
   getTeacherList = () => {
       const action = {type: BOOKING_ACTIONS.FETCH_TEACHER_LIST};
       this.props.dispatch(action);
+      return
   }
 
   handleInputChangeFor = propName => (event) => {
@@ -79,15 +95,23 @@ class BookLesson extends Component {
           ...this.state,
           booking: {
               ...this.state.booking,
+              student_id: this.props.booking.booking.student_id[0].id,
               [propName]: event.target.value}
         })
   }
 
   getStudentProfileId = (user_id) => {
     console.log('user_id:', user_id);
-    
-    const action = {type:BOOKING_ACTIONS.FETCH_STUDENT_ID, user_id}
+    const action = {type:BOOKING_ACTIONS.FETCH_STUDENT_ID, payload: user_id}
     this.props.dispatch(action);
+    return
+  }
+
+  postBookingRequest = (booking) =>{
+    console.log('in postBookingRequest with booking:', booking);
+    const action = {type: BOOKING_ACTIONS.POST_BOOKING, payload: booking}
+    this.props.dispatch(action);
+
   }
 
   render() {
@@ -136,6 +160,10 @@ class BookLesson extends Component {
                 }}/>
             </label>
         </div>
+        <div>
+        </div>
+        <Button onClick={()=>this.postBookingRequest(this.state.booking)}>Submit</Button>
+
         <pre>reducer:{JSON.stringify(this.props.booking.teacherList)}</pre>
         <pre>state:{JSON.stringify(this.state)}</pre>
         <pre>user:{JSON.stringify(this.props.user)}</pre>
