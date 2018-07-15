@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { BOOKING_ACTIONS } from '../actions/bookingActions';
-import { callTeachers, callStudent, sendBooking, callTeacherId, callBookings, putAcceptBooking, putRejectBooking } from '../requests/bookingRequests';
+import { callTeachers, callStudent, sendBooking, callTeacherId, callBookings, putAcceptBooking, putRejectBooking, callAcceptedBookings } from '../requests/bookingRequests';
 
 // get the list of Teachers from database
 function* fetchTeachers() {
@@ -41,15 +41,27 @@ function* postBooking(action){
     }
 }
 
-function* fetchBookings(action){
-    console.log('fetchBookings:', action);
+function* fetchPendingBookings(action){
+    console.log('fetchPendingBookings:', action);
     try{
         const bookings = yield callBookings(action.payload)
-        yield put({type:BOOKING_ACTIONS.SET_BOOKINGS_REQUEST_LIST, bookings})
+        yield put({type:BOOKING_ACTIONS.SET_BOOKINGS_LIST, bookings})
     }
     catch(error){
         console.log('error fetching bookings:', error);
         
+    }
+    
+}
+
+function* fetchAcceptedBookings(action){
+    console.log('fetchAcceptedBookings:', action);
+    try{
+        const bookings = yield callAcceptedBookings(action.payload)
+        yield put({type:BOOKING_ACTIONS.SET_BOOKINGS_LIST, bookings})
+    }
+    catch(error){
+        console.log('error fetching bookings:', error);
     }
     
 }
@@ -100,9 +112,10 @@ function* personSaga() {
   yield takeLatest(BOOKING_ACTIONS.FETCH_STUDENT_ID, fetchStudent);
   yield takeLatest(BOOKING_ACTIONS.POST_BOOKING, postBooking);
   yield takeLatest(BOOKING_ACTIONS.FETCH_TEACHER_ID, fetchTeacherId);
-  yield takeLatest(BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, fetchBookings);
+  yield takeLatest(BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, fetchPendingBookings);
   yield takeLatest(BOOKING_ACTIONS.UPDATE_BOOKING_ACCEPT, updateBookingAccept);
   yield takeLatest(BOOKING_ACTIONS.UPDATE_BOOKING_REJECT, updateBookingReject);
+  yield takeLatest(BOOKING_ACTIONS.FETCH_BOOKINGS_LIST, fetchAcceptedBookings);
 }
 
 

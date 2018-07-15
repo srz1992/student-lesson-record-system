@@ -43,6 +43,7 @@ export function sendBooking(booking){
   })
 }
 
+// this function is for getting the pending bookings only
 export function callBookings(teacher_id){
   console.log('in callBookings');
   return axios.get(`api/booking/${teacher_id}`)
@@ -53,6 +54,19 @@ export function callBookings(teacher_id){
   .catch((error)=>{
     throw error.response || error;
   });
+}
+
+// this function is for getting the accepted bookings only
+export function callAcceptedBookings(teacher_id){
+  console.log('in callAcceptedBookings');
+  return axios.get(`api/booking/accepted/${teacher_id}`)
+  .then((response)=>{
+    console.log('response.data:', response.data);
+    return response.data
+  })
+  .catch((error)=>{
+    throw error.response || error
+  })
 }
 
 export function putAcceptBooking(booking_id){

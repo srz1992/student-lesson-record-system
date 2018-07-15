@@ -43,7 +43,7 @@ class BookedLessons extends Component {
         await new Promise(resolve=>{setTimeout(resolve, 100)})
     }    
     console.log('this.state.studentToUpdate:', this.state.studentToUpdate);
-    const action = {type: BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, payload: this.props.user.secondId}
+    const action = {type: BOOKING_ACTIONS.FETCH_BOOKINGS_LIST, payload: this.props.user.secondId}
     
     this.props.dispatch(action);
     // await this.getBookings(this.props.user.secondId);

@@ -8,10 +8,9 @@ const booking = (state = {student_id: '', bookingList:[]}, action) => {
     case BOOKING_ACTIONS.SET_STUDENT_ID:
         console.log('here is the state of booking:');
         return {...state, student_id: action.student}
-    case BOOKING_ACTIONS.SET_BOOKINGS_REQUEST_LIST:
+    case BOOKING_ACTIONS.SET_BOOKINGS_LIST:
         console.log('setting booking list');
         return {...state, bookingList: action.bookings}
-    
     default:
       return state;
   }

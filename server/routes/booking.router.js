@@ -46,7 +46,23 @@ router.get('/teacher/:id', (req, res)=>{
 router.get('/:id', (req, res)=>{
     console.log('in get call for api/booking to get bookings for teacher_id:', req.params.id);
     teacher_id = req.params.id;
-    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Pending';`
+    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Pending' ORDER BY requested_lesson_date, requested_lesson_time;`
+    // 
+    pool.query(queryText, [teacher_id])
+    .then((result)=>{
+        console.log('successfully got booking requests for teacher:', result.rows);
+        res.send(result.rows);
+    })
+    .catch((error)=>{
+        console.log('error getting booking requests for teacher:', error);
+        res.sendStatus(500);
+    })
+})
+
+router.get('/accepted/:id', (req, res)=>{
+    console.log('in get call for api/booking to get bookings for teacher_id:', req.params.id);
+    teacher_id = req.params.id;
+    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Accepted' ORDER BY requested_lesson_date, requested_lesson_time;`
     // 
     pool.query(queryText, [teacher_id])
     .then((result)=>{
