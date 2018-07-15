@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
-import AdminNav from '../../Nav/AdminNav';
+import TeacherNav from '../../Nav/TeacherNav';
 
 import {USER_ACTIONS} from '../../../redux/actions/userActions';
 import {PERSON_ACTIONS} from '../../../redux/actions/personActions';
@@ -22,7 +22,8 @@ import { BOOKING_ACTIONS } from '../../../redux/actions/bookingActions';
 
 const mapStateToProps = state => ({
   user: state.user,
-  student: state.person
+  student: state.person,
+  booking: state.booking
 });
 
 class BookingRequests extends Component {
@@ -30,18 +31,22 @@ class BookingRequests extends Component {
   constructor(props){
     super(props);
     this.state = {
-      targetStudent: null,
-      editHidden: true,
       
     }
   }
   
-  componentDidMount() {
+  async componentDidMount() {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
-      this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+      const fetchedUser = this.props.dispatch({ type: USER_ACTIONS.FETCH_USER })
+      console.log(`fetchedUser:${fetchedUser}`);
+        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        await new Promise(resolve=>{setTimeout(resolve, 100)})
     }    
     console.log('this.state.studentToUpdate:', this.state.studentToUpdate);
+    const action = {type: BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, payload: this.props.user.secondId}
     
+    this.props.dispatch(action);
+    // await this.getBookings(this.props.user.secondId);
   }
 
   componentDidUpdate() {
@@ -68,7 +73,6 @@ class BookingRequests extends Component {
     this.setState({
       ...this.state,
       studentToUpdate: {
-        ...this.state.studentToUpdate,
         [propName]: event.target.value}
     })    
     console.log(this.state);
@@ -82,11 +86,22 @@ class BookingRequests extends Component {
   }
 
   getBookings = (teacher_id) =>{
-
+    const action = {type: BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, payload: teacher_id}
+    return this.props.dispatch(action);
   }
 
-  
+  acceptBooking = (booking_id, teacher_id) => {
+    // TO DO: UPON SUCCESSFULLY UPDATING WE NEED TO REFRESH REDUX BOOKING REQUEST LIST
+    console.log('acceptBooking id:', booking_id);
+    const action = {type:BOOKING_ACTIONS.UPDATE_BOOKING_ACCEPT, payload: {booking_id:booking_id, teacher_id:teacher_id}}
+    this.props.dispatch(action);
+  }
 
+  rejectBooking = (booking_id, teacher_id) => {
+    console.log('acceptBooking id:', booking_id);
+    const action = {type:BOOKING_ACTIONS.UPDATE_BOOKING_REJECT, payload: {booking_id:booking_id, teacher_id:teacher_id}}
+    this.props.dispatch(action);
+  }
   
 
   render() {
@@ -113,7 +128,22 @@ class BookingRequests extends Component {
                           <TableCell>Reject</TableCell>
                       </TableRow>
                   </TableHead>
+                  <TableBody>
+                    {this.props.booking.booking.bookingList.map(request => (
+                    <TableRow key={request.id}>
+                        <TableCell>{request.student_id}</TableCell>
+                        <TableCell>{request.name}</TableCell>
+                        <TableCell>{request.date_made.split('T')[0]}</TableCell>
+                        <TableCell>{request.requested_lesson_date.split('T')[0]}</TableCell>
+                        <TableCell>{request.requested_lesson_time}</TableCell>
+                        <TableCell><Button onClick={()=>this.acceptBooking(request.id, this.props.user.secondId)}>Accept</Button></TableCell>
+                        <TableCell><Button onClick={()=>this.rejectBooking(request.id, this.props.user.secondId)}>Reject</Button></TableCell>
+
+                    </TableRow>))}
+                  </TableBody>
               </Table>
+              <pre>{JSON.stringify(this.props.user)}</pre>
+              <pre>{JSON.stringify(this.props.booking)}</pre>
           </Paper>
 
         </div>
@@ -122,7 +152,7 @@ class BookingRequests extends Component {
 
     return (
       <div>
-        <AdminNav />
+        <TeacherNav />
         { content }
       </div>
     );

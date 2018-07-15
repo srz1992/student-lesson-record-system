@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { BOOKING_ACTIONS } from '../actions/bookingActions';
-import { callTeachers, callStudent, sendBooking, callTeacherId } from '../requests/bookingRequests';
+import { callTeachers, callStudent, sendBooking, callTeacherId, callBookings, putAcceptBooking, putRejectBooking } from '../requests/bookingRequests';
 
 // get the list of Teachers from database
 function* fetchTeachers() {
@@ -41,6 +41,19 @@ function* postBooking(action){
     }
 }
 
+function* fetchBookings(action){
+    console.log('fetchBookings:', action);
+    try{
+        const bookings = yield callBookings(action.payload)
+        yield put({type:BOOKING_ACTIONS.SET_BOOKINGS_REQUEST_LIST, bookings})
+    }
+    catch(error){
+        console.log('error fetching bookings:', error);
+        
+    }
+    
+}
+
 function* fetchTeacherId(action){
     console.log('fetchTeacherId:', action);
     const id = action.payload;
@@ -55,11 +68,41 @@ function* fetchTeacherId(action){
     
 }
 
+function* updateBookingAccept(action){
+    console.log('updatingBookingAccept:', action);
+    const booking_id = action.payload.booking_id;
+    const teacher_id = action.payload.teacher_id;
+    try{
+       yield putAcceptBooking(booking_id);
+       yield put({type:BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, payload: teacher_id})
+    }
+    catch(error){
+        console.log('error updating booking to accepted:', error);
+    }
+}
+
+function* updateBookingReject(action){
+    console.log('updatingBookingAccept:', action);
+    const booking_id = action.payload.booking_id;
+    const teacher_id = action.payload.teacher_id;
+    try{
+       yield putRejectBooking(booking_id);
+       yield put({type:BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, payload: teacher_id})
+    }
+    catch(error){
+        console.log('error updating booking to accepted:', error);
+        
+    }
+}
+
 function* personSaga() {
   yield takeLatest(BOOKING_ACTIONS.FETCH_TEACHER_LIST, fetchTeachers);
-  yield takeLatest(BOOKING_ACTIONS.FETCH_STUDENT_ID, fetchStudent)
-  yield takeLatest(BOOKING_ACTIONS.POST_BOOKING, postBooking)
-  yield takeLatest(BOOKING_ACTIONS.FETCH_TEACHER_ID, fetchTeacherId)
+  yield takeLatest(BOOKING_ACTIONS.FETCH_STUDENT_ID, fetchStudent);
+  yield takeLatest(BOOKING_ACTIONS.POST_BOOKING, postBooking);
+  yield takeLatest(BOOKING_ACTIONS.FETCH_TEACHER_ID, fetchTeacherId);
+  yield takeLatest(BOOKING_ACTIONS.FETCH_BOOKINGS_REQUEST_LIST, fetchBookings);
+  yield takeLatest(BOOKING_ACTIONS.UPDATE_BOOKING_ACCEPT, updateBookingAccept);
+  yield takeLatest(BOOKING_ACTIONS.UPDATE_BOOKING_REJECT, updateBookingReject);
 }
 
 
