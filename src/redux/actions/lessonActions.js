@@ -1,0 +1,12 @@
+export const LESSON_ACTIONS = {
+   
+
+    // get lesson records
+    FETCH_LESSON_RECORDS: 'FETCH_LESSON_RECORDS',
+    SET_LESSON_RECORDS: 'SET_LESSON_RECORDS',
+
+    // update lesson record
+    UPDATE_LESSON_RECORD: 'UPDATE_LESSON_RECORD',
+    // SET_LESSON_RECORD: 'SET_LESSON_RECORD',
+
+}

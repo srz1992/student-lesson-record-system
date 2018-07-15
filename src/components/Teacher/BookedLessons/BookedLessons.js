@@ -40,7 +40,7 @@ class BookedLessons extends Component {
       const fetchedUser = this.props.dispatch({ type: USER_ACTIONS.FETCH_USER })
       console.log(`fetchedUser:${fetchedUser}`);
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        await new Promise(resolve=>{setTimeout(resolve, 100)})
+        await new Promise(resolve=>{setTimeout(resolve, 150)})
     }    
     console.log('this.state.studentToUpdate:', this.state.studentToUpdate);
     const action = {type: BOOKING_ACTIONS.FETCH_BOOKINGS_LIST, payload: this.props.user.secondId}
@@ -124,8 +124,7 @@ class BookedLessons extends Component {
                           <TableCell>Date</TableCell>
                           <TableCell>Requested Lesson Date</TableCell>
                           <TableCell>Requested Lesson Time</TableCell>
-                          <TableCell>Accept</TableCell>
-                          <TableCell>Reject</TableCell>
+                          
                       </TableRow>
                   </TableHead>
                   <TableBody>
@@ -136,8 +135,7 @@ class BookedLessons extends Component {
                         <TableCell>{request.date_made.split('T')[0]}</TableCell>
                         <TableCell>{request.requested_lesson_date.split('T')[0]}</TableCell>
                         <TableCell>{request.requested_lesson_time}</TableCell>
-                        <TableCell><Button onClick={()=>this.acceptBooking(request.id, this.props.user.secondId)}>Accept</Button></TableCell>
-                        <TableCell><Button onClick={()=>this.rejectBooking(request.id, this.props.user.secondId)}>Reject</Button></TableCell>
+                        
 
                     </TableRow>))}
                   </TableBody>
