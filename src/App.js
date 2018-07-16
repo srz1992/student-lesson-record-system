@@ -23,7 +23,6 @@ import TeacherBookedLessons from './components/Teacher/BookedLessons/BookedLesso
 import BookingRequests from './components/Teacher/BookingRequests/BookingRequests';
 import SearchStudents from './components/Teacher/SearchStudents/SearchStudents';
 import LessonRecord from './components/Teacher/SearchStudents/LessonRecord';
-import EditLessonRecord from './components/Teacher/SearchStudents/EditLessonRecord';
 
 // student pages
 import StudentHome from './components/Student/StudentHome/StudentHome';
@@ -89,10 +88,6 @@ const App = () => (
         <Route
           path="/lessonRecord"
           component={LessonRecord}
-        />
-        <Route
-          path="/editLessonRecord"
-          component={EditLessonRecord}
         />
 
 

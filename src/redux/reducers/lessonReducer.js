@@ -12,6 +12,10 @@ const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: fal
         console.log('got back no lessons!');
         return {...state, lessonRecords: action.lessons, recordsObtained:false, errorDisplay: true}
         }
+    // case LESSON_ACTIONS.SET_LESSON_VOCAB:
+    //     console.log('setting lesson vocab');
+    //     return {...state, lessonRecords[action.payload.targetLesson].vocab: action.payload.newVocab}
+        
     default:
       return state;
   }
