@@ -70,6 +70,7 @@ class SearchStudents extends Component {
   }
 
   getProfileAndRecords = (id)=>{
+    console.log('in getProfileAndRecords with id:', id);
     this.getStudentById(id);
     this.getStudentRecordsById(id);
   }
@@ -92,7 +93,7 @@ class SearchStudents extends Component {
           <label>Student ID:&emsp;<TextField onChange={this.handleInputChangeFor('targetStudent')} /></label>
           <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
           {this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}
-          {this.props.student.studentProfile.studentCalled && <LessonRecord targetLesson={this.state.targetLesson}/>}
+          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord targetLesson={this.state.targetLesson}/>}
         </div>
       );
     }

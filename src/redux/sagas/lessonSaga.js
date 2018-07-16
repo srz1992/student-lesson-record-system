@@ -2,25 +2,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { LESSON_ACTIONS } from '../actions/lessonActions';
 import {callLessons, putLesson} from '../requests/lessonRequests';
 
-// worker Saga: will be fired on "FETCH_USER" actions
-// function* fetchStudent(action) {
-//   try {
-//     const student = yield callStudent(action.payload);
-//     yield put({
-//       type: PERSON_ACTIONS.SET_STUDENT,
-//       student,
-//     });
-    
-//   } catch (error) {
-//     console.log('error in fetchStudent saga:', error);
-    
-//     // yield put({
-//     //   type: USER_ACTIONS.USER_FETCH_FAILED,
-//     //   message: error.data || "FORBIDDEN",
-//     // });
-//   }
-// }
-
 function* fetchLessons(action){
     const student_id = action.payload;
     try{

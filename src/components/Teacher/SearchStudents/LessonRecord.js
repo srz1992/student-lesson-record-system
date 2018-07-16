@@ -13,11 +13,13 @@ import { triggerLogout } from '../../../redux/actions/loginActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
+
 
 const mapStateToProps = state => ({
   user: state.user,
   student: state.person,
-  lessons: state.lessons.lessons,
+  lessons: state.lessons
 });
 
 class LessonRecord extends Component {
@@ -27,7 +29,13 @@ class LessonRecord extends Component {
     this.state = {
       targetStudent: null,
       editHidden: true,
-      
+      recordToEdit: {
+          strengths: '',
+          points_of_improvement: '',
+          vocab: [],
+          phrases: [],
+          comments: ''
+      }
     }
   }
   
@@ -50,14 +58,6 @@ class LessonRecord extends Component {
     // this.props.history.push('home');
   }
 
-  handleInputChangeFor = propName => (event) => {
-    this.setState({
-      ...this.state,
-      [propName]: event.target.value
-    })    
-    console.log(this.state);
-    
-  }
 
   handleUpdateInputChangeFor = propName => (event) => {
     this.setState({
@@ -76,30 +76,45 @@ class LessonRecord extends Component {
     this.props.dispatch(action);
   }
 
-
+  toggleEdit = () =>{
+      this.setState({...this.state, editHidden: false});
+  }
   
 
   
 
   render() {
     let content = null;
-    console.log(this.props.student);
     
     if (this.props.user.userName && this.props.user.userType === 'teacher') {
       content = (
         <div>
-          <Paper>
+          {this.state.editHidden && <Paper>
               <h1>Lesson Record</h1>
-              <p>{this.props.lessons.lessonRecord[this.props.targetLesson]}</p>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-          </Paper>
+              <p>Sean with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              <p>{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              <p>Date: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].date.split('T')[0]}</p>
+              <p>Time: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].time}</p>
+              <p>Strengths: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths}</p>
+              <p>Points of Improvement: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement}</p>
+              <p>Vocabulary:{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab}</p>
+              <p>Phrases: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases}</p>
+              <p>Comments: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments}</p>
+              <Button>Edit</Button>
+          </Paper>}
+          {!this.state.editHidden && <Paper>
+            <p>Sean with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              <p>{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              <p>Date: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].date.split('T')[0]}</p>
+              <p>Time: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].time}</p>
+              <div><label>Strengths: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('strengths')} defaultValue={this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths} /></label></div>
+              <div><label>Points of Improvement: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('points_of_improvement')} defaultValue={this.props.teacher.teacherProfile.name} /></label></div>
+              <div><label>Vocabulary: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('vocab')} type="date" defaultValue={this.props.teacher.teacherProfile.date_of_birth.split('T')[0]} /></label></div>
+              <div><label>Phrases: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('phrases')} defaultValue={this.props.teacher.teacherProfile.hometown} /></label></div>
+              <div><label>Comments: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('comments')} multiline rowsMax="2" defaultValue={this.props.teacher.teacherProfile.hobbies} /></label></div>
+
+              <Button onClick={()=>{this.updateTeacherById(this.state.teacherToUpdate);}}>Update</Button>
+            </Paper>}
         </div>
       );
     }
