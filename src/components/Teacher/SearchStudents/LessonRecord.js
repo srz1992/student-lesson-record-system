@@ -61,7 +61,21 @@ class LessonRecord extends Component {
   componentDidMount() {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-    }        
+    }       
+    
+    this.setState({
+      ...this.state,
+      editHidden: true,
+      recordToEdit: {
+        id: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].id,
+        student_id: this.props.targetStudent,
+        strengths: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths,
+        points_of_improvement: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement,
+        vocab: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab,
+        phrases: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases,
+        comments: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments
+    }
+    }) 
   }
 
   componentDidUpdate() {
@@ -93,15 +107,32 @@ class LessonRecord extends Component {
         this.setState({
         ...this.state, 
         editHidden: false,
+        recordToEdit: {
+          id: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].id,
+          student_id: this.props.targetStudent,
+          strengths: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths,
+          points_of_improvement: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement,
+          vocab: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab,
+          phrases: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases,
+          comments: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments
+      }
       });
+      
     }
     else {
       this.setState({
         ...this.state, 
         editHidden: false,
         recordToEdit:{
-          ...this.state.recordToEdit,
-          vocab: []
+          recordToEdit: {
+            id: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].id,
+            student_id: this.props.targetStudent,
+            strengths: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths,
+            points_of_improvement: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement,
+            vocab: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab,
+            phrases: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases,
+            comments: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments
+        }
         }
       });
     }
@@ -136,16 +167,10 @@ class LessonRecord extends Component {
 
   handleVocabSubmit = (vocabToSubmit) =>{
     console.log('in handleVocabSubmit with:', vocabToSubmit);
-    const newVocabArray = this.state.recordToEdit.vocab;
-    newVocabArray.push(vocabToSubmit);
-    this.setState({
-      ...this.state,
-      recordToEdit: {
-        ...this.state.recordToEdit,
-        vocab: newVocabArray
-      },
-      vocabToSubmit: ''
-    })
+
+    const action = {type: LESSON_ACTIONS.ADD_LESSON_VOCAB, payload: {targetLesson: this.props.targetLesson, vocabToSubmit: vocabToSubmit}}
+    this.props.dispatch(action)
+
   }
 
   handlePhraseSubmit = (phraseToSubmit)=>{
@@ -178,16 +203,22 @@ class LessonRecord extends Component {
     })
   }
   
-  updateLessonRecord = (recordToEdit) =>{
+  updateLessonRecord = async (recordToEdit) =>{
     console.log('in updateLessonRecord with:', recordToEdit);
     const action = {type:LESSON_ACTIONS.UPDATE_LESSON_RECORD, payload: recordToEdit};
     this.props.dispatch(action);
     this.setState({
       ...this.state,
       editHidden: true,
-      recordToEdit:{
-        ...this.state.recordToEdit,
-      }
+      recordToEdit: {
+        id: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].id,
+        student_id: this.props.targetStudent,
+        strengths: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths,
+        points_of_improvement: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement,
+        vocab: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab,
+        phrases: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases,
+        comments: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments
+    }
     })
   }
 
@@ -219,12 +250,12 @@ class LessonRecord extends Component {
               <div><label>Strengths: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('strengths')} defaultValue={this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths} /></label></div>
               <div><label>Points of Improvement: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('points_of_improvement')} defaultValue={this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement} /></label></div>
               <div><label>Vocabulary: &emsp;<form onSubmit={()=>this.handleVocabSubmit(this.state.vocabToSubmit)}><FormGroup row className="">
-            {this.state.recordToEdit.vocab.map((word,i) => <Chip key={i} label={word} className={classes.chip} onDelete={()=>this.handleVocabDelete(word,this.state.recordToEdit.vocab)} />)}
+            {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab.map((word,i) => <Chip key={i} label={word} className={classes.chip} onDelete={()=>this.handleVocabDelete(word,this.state.recordToEdit.vocab)} />)}
             <TextField value={this.state.vocabToSubmit} onChange={this.handleVocabToSubmit} />
             <Button type="submit" value="" >Add</Button>
             </FormGroup></form></label></div>
             <div><label>Phrases: &emsp;<form onSubmit={()=>this.handlePhraseSubmit(this.state.phraseToSubmit)}><FormGroup row className="">
-            {this.state.recordToEdit.phrases.map((phrase,i) => <Chip key={i} label={phrase} className={classes.chip} onDelete={()=>this.handlePhraseDelete(phrase,this.state.recordToEdit.phrases)} />)}
+            {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases.map((phrase,i) => <Chip key={i} label={phrase} className={classes.chip} onDelete={()=>this.handlePhraseDelete(phrase,this.state.recordToEdit.phrases)} />)}
             <TextField value={this.state.phraseToSubmit} onChange={this.handlePhraseToSubmit} />
             <Button type="submit" value="" >Add</Button>
             </FormGroup></form></label></div>

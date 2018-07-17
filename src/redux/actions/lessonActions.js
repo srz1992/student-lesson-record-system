@@ -10,10 +10,14 @@ export const LESSON_ACTIONS = {
     // SET_LESSON_RECORD: 'SET_LESSON_RECORD',
 
     // update vocab and phrases stored in reducer before sending
-    SET_LESSON_VOCAB: 'SET_LESSON_VOCAB',
-    SET_LESSON_PHRASES: 'SET_LESSON_PHRASES',
-    DELETE_VOCAB: 'DELETE_VOCAB',
-    DELETE_PHRASE: 'DELETE_PHRASE'
+    
+        // add a vocab or phrase to a specific lesson in the reducer
+        ADD_LESSON_VOCAB: 'ADD_LESSON_VOCAB',
+        ADD_LESSON_PHRASE: 'ADD_LESSON_PHRASE',
+        
+        // delete a vocab or phrase from a specific lesson in the reducer
+        DELETE_VOCAB: 'DELETE_VOCAB',
+        DELETE_PHRASE: 'DELETE_PHRASE'
 
 
 }

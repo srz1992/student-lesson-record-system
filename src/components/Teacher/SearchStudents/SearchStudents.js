@@ -31,8 +31,11 @@ class SearchStudents extends Component {
     super(props);
     this.state = {
       targetStudent: null,
-      targetLesson: 0
+      targetLesson: 0,
+      studentCalled: false,
+      searchClicked: false
     }
+
   }
   
   componentDidMount() {
@@ -58,7 +61,7 @@ class SearchStudents extends Component {
   }
 
   getStudentById = (id) =>{
-    this.setState({...this.state, studentCalled: true});
+    this.setState({...this.state, studentCalled: true, searchClicked: true});
     let action = { type: PERSON_ACTIONS.FETCH_STUDENT, payload: id };
     this.props.dispatch(action);
   }
@@ -74,7 +77,14 @@ class SearchStudents extends Component {
     this.getStudentRecordsById(id);
   }
   
-
+changeTargetLesson = (newIndex)=>{
+  console.log('in changeTargetLesson with newIndex:', newIndex);
+  this.setState({
+    ...this.state,
+    targetLesson: newIndex
+  })
+  
+}
   
 
   render() {
@@ -92,7 +102,8 @@ class SearchStudents extends Component {
           <label>Student ID:&emsp;<TextField type="number" onChange={this.handleInputChangeFor('targetStudent')} /></label>
           <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
           {this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}
-          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord targetStudent={this.state.targetStudent} targetLesson={this.state.targetLesson}/>}
+          {this.props.student.studentProfile.studentCalled && this.props.lessons.lessonRecords.map((number,i) => <span key={i}><button onClick={()=>this.changeTargetLesson(i)}>{this.props.lessons.lessonRecords.length-i}</button></span>)}
+          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent} targetLesson={this.state.targetLesson}/>}
         </div>
       );
     }
