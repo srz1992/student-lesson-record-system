@@ -82,7 +82,7 @@ handleInputChangeFor = propertyName => (event) => {
         <AdminNav />
         {this.renderAlert()}
         <Paper>
-        <form onSubmit={this.registerUser}>
+        <form className="default" onSubmit={this.registerUser}>
           <h1>Register Teacher</h1>
           <div>
           <div>

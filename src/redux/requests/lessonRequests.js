@@ -11,9 +11,10 @@ export function callLessons(student_id){
     })
 }
 
-export function putLesson(lesson_id){
-    console.log('in putLesson with lesson_id:', lesson_id);
-    return axios.put(`/api/lesson/${lesson_id}`)
+export function putLesson(updatedLesson){
+    console.log('in putLesson with lesson_id:', updatedLesson);
+    const lesson_id = updatedLesson.id;
+    return axios.put(`/api/lesson/${lesson_id}`, updatedLesson)
     .then((response)=>{
         console.log('updated lesson record:', response);
         return response.data;

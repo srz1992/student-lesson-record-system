@@ -19,4 +19,26 @@ router.get('/:id', (req, res) => {
     })
 });
 
+router.put('/:id', (req,res)=>{
+    console.log('in put call for lesson record with id:', req.params.id);
+    console.log('req.body for put call is:', req.body);
+    
+    const id = req.params.id;
+    const strengths = req.body.strengths;
+    const points_of_improvement = req.body.points_of_improvement;
+    const vocab = req.body.vocab;
+    const phrases = req.body.phrases;
+    const comments = req.body.comments;
+    const queryText = `UPDATE record SET strengths=$2, points_of_improvement=$3, vocab=$4, phrases=$5, comments=$6 where id=$1`
+    pool.query(queryText, [id, strengths, points_of_improvement, vocab, phrases, comments])
+    .then((result)=>{
+        console.log('updated lesson record');
+        res.sendStatus(200);
+    })
+    .catch((error)=>{
+        console.log('error updating lesson records:', error);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;

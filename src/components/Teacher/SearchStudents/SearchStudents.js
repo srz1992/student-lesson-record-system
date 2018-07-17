@@ -39,7 +39,6 @@ class SearchStudents extends Component {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }    
-    console.log('this.state.studentToUpdate:', this.state.studentToUpdate);
     
   }
 
@@ -52,7 +51,7 @@ class SearchStudents extends Component {
   handleInputChangeFor = propName => (event) => {
     this.setState({
       ...this.state,
-      [propName]: event.target.value
+      [propName]: parseInt(event.target.value)
     })    
     console.log(this.state);
     
@@ -90,10 +89,10 @@ class SearchStudents extends Component {
           <h1 id="welcome">
             Search Students
           </h1>
-          <label>Student ID:&emsp;<TextField onChange={this.handleInputChangeFor('targetStudent')} /></label>
+          <label>Student ID:&emsp;<TextField type="number" onChange={this.handleInputChangeFor('targetStudent')} /></label>
           <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
           {this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}
-          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord targetLesson={this.state.targetLesson}/>}
+          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord targetStudent={this.state.targetStudent} targetLesson={this.state.targetLesson}/>}
         </div>
       );
     }

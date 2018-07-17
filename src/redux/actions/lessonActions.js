@@ -12,5 +12,8 @@ export const LESSON_ACTIONS = {
     // update vocab and phrases stored in reducer before sending
     SET_LESSON_VOCAB: 'SET_LESSON_VOCAB',
     SET_LESSON_PHRASES: 'SET_LESSON_PHRASES',
+    DELETE_VOCAB: 'DELETE_VOCAB',
+    DELETE_PHRASE: 'DELETE_PHRASE'
+
 
 }

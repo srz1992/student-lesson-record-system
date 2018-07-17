@@ -13,10 +13,9 @@ function* fetchLessons(action){
 }
 
 function* updateLessonRecord(action){
-    const lesson_id = action.payload.lesson_id;
     const student_id = action.payload.student_id;
     try{
-        yield putLesson(lesson_id);
+        yield putLesson(action.payload);
         yield put({type:LESSON_ACTIONS.FETCH_LESSON_RECORDS, payload: student_id})
     }catch(error){
         console.log('error in updateLessonRecord:', error);
