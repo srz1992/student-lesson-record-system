@@ -1,6 +1,9 @@
 export const LESSON_ACTIONS = {
    
 
+    // set target lesson
+    SET_TARGET_LESSON: 'SET_TARGET_LESSON',
+
     // get lesson records
     FETCH_LESSON_RECORDS: 'FETCH_LESSON_RECORDS',
     SET_LESSON_RECORDS: 'SET_LESSON_RECORDS',

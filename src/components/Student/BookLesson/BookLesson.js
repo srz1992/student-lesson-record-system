@@ -15,7 +15,6 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import Select from '@material-ui/core/Select';
 
-
 const mapStateToProps = state => ({
   user: state.user,
   booking: state.booking
@@ -89,7 +88,6 @@ class BookLesson extends Component {
   getTeacherList = () => {
       const action = {type: BOOKING_ACTIONS.FETCH_TEACHER_LIST};
       this.props.dispatch(action);
-      return
   }
 
   handleInputChangeFor = propName => (event) => {
@@ -127,9 +125,10 @@ class BookLesson extends Component {
         <Paper>
             <h3>Please enter your desired date, time, and teacher</h3>
             <div><label>Teacher:&emsp;<Select
-                select
+                
                 className={classes.textField}
                 label="Select Teacher"
+                name='teacher_id'
                 onChange={this.handleInputChangeFor('teacher_id')}
                 value={this.state.booking.teacher_id}
                 
@@ -149,13 +148,14 @@ class BookLesson extends Component {
             <label>Time:&emsp;
             <TextField
                 id="time"
-                label="Alarm clock"
                 type="time"
-                defaultValue="07:30"
+                defaultValue="08:00"
                 onChange={this.handleInputChangeFor('requested_lesson_time')}
                 className={classes.textField}
                 InputLabelProps={{
                 shrink: true,
+                min: "8:00",
+                max: "21:00"
                 }}
                 inputProps={{
                 step: 300, // 5 min

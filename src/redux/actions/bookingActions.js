@@ -18,11 +18,15 @@ export const BOOKING_ACTIONS = {
     FETCH_TEACHER_ID: 'FETCH_TEACHER_ID',
     SET_TEACHER_ID: 'SET_TEACHER_ID',
 
-    // bookings request list
+    // bookings request list for teachers
     FETCH_BOOKINGS_REQUEST_LIST: 'FETCH_BOOKINGS_REQUEST_LIST',
     SET_BOOKINGS_REQUEST_LIST: 'SET_BOOKINGS_REQUEST_LIST',
 
-    //fetch accepted bookings list
+    //fetch accepted bookings list for teachers
     FETCH_BOOKINGS_LIST: 'FETCH_BOOKINGS_LIST',
-    SET_BOOKINGS_LIST: 'SET_BOOKINGS_LIST'
+    SET_BOOKINGS_LIST: 'SET_BOOKINGS_LIST',
+
+    //fetch bookings list for student
+    FETCH_STUDENT_BOOKINGS_LIST: 'FETCH_STUDENT_BOOKINGS_LIST',
+    SET_STUDENT_BOOKINGS_LIST: 'SET_STUDENT_BOOKINGS_LIST'
 }

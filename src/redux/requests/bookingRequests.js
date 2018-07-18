@@ -32,11 +32,12 @@ export function callTeacherId(user_id){
   })
 }
 
+// sends a booking request for student?
 export function sendBooking(booking){
   console.log('in sendBooking with:', booking);
   return axios.post('api/booking/', booking)
   .then((response)=>{
-    console.log('posted booking in sendBooking');
+    console.log('posted booking in sendBooking:', response);
   })
   .catch((error)=>{
     console.log('error posting booking in sendBooking:', error); 
@@ -69,6 +70,7 @@ export function callAcceptedBookings(teacher_id){
   })
 }
 
+// accept a booking request for teacher
 export function putAcceptBooking(booking_id){
   console.log('in putAcceptBooking with booking id:', booking_id);
   return axios.put(`api/booking/accept/${booking_id}`)
@@ -81,6 +83,7 @@ export function putAcceptBooking(booking_id){
   })
 }
 
+// reject a booking request for teacher
 export function putRejectBooking(booking_id){
   console.log('in putRejectBooking with booking id;', booking_id);
   return axios.put(`api/booking/reject/${booking_id}`)
@@ -91,4 +94,17 @@ export function putRejectBooking(booking_id){
   .catch((error)=>{
     throw error.response || error;
   })
+}
+
+// get bookings list for student
+export function callStudentBookings(student_id){
+  console.log('in callStudentBookings with student_id:', student_id);
+  return axios.get(`api/booking/student/bookings/${student_id}`)
+  .then((response)=>{
+    return response.data;
+  })
+  .catch((error)=>{
+    throw error.response || error
+  })
+  
 }

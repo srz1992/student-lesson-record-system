@@ -11,6 +11,11 @@ const booking = (state = {student_id: '', bookingList:[]}, action) => {
     case BOOKING_ACTIONS.SET_BOOKINGS_LIST:
         console.log('setting booking list');
         return {...state, bookingList: action.bookings}
+    case BOOKING_ACTIONS.SET_STUDENT_BOOKINGS_LIST:
+        console.log('set student bookings list');
+        return {...state, bookingList: action.bookings}
+        
+    
     default:
       return state;
   }

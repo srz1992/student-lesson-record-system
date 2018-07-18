@@ -8,7 +8,6 @@ import {
 
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
-import InfoPage from './components/InfoPage/InfoPage';
 
 // admin pages
 import AdminHome from './components/Admin/AdminHome/AdminHome';
@@ -27,7 +26,6 @@ import LessonRecord from './components/Teacher/SearchStudents/LessonRecord';
 // student pages
 import StudentHome from './components/Student/StudentHome/StudentHome';
 import StudentBookedLessons from './components/Student/BookedLessons/BookedLessons';
-import LessonRecords from './components/Student/LessonRecords/LessonRecords';
 import BookLesson from './components/Student/BookLesson/BookLesson';
 import StudentViewTeachers from './components/Student/ViewTeachers/ViewTeachers';
 
@@ -100,10 +98,10 @@ const App = () => (
           path="/studentBookedLessons"
           component={StudentBookedLessons}
         />
-        <Route
+        {/* <Route
           path="/lessonRecords"
           component={LessonRecords}
-        />
+        /> */}
         <Route
           path="/bookLesson"
           component={BookLesson}
@@ -111,10 +109,6 @@ const App = () => (
         <Route
           path="/studentViewTeachers"
           component={StudentViewTeachers}
-        />
-        <Route
-          path="/info"
-          component={InfoPage}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

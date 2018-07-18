@@ -1,6 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { BOOKING_ACTIONS } from '../actions/bookingActions';
-import { callTeachers, callStudent, sendBooking, callTeacherId, callBookings, putAcceptBooking, putRejectBooking, callAcceptedBookings } from '../requests/bookingRequests';
+import { callTeachers, callStudent, sendBooking, callTeacherId, callBookings, putAcceptBooking, putRejectBooking, callAcceptedBookings, callStudentBookings } from '../requests/bookingRequests';
+
+
+// STUDENT ACTIONS
 
 // get the list of Teachers from database
 function* fetchTeachers() {
@@ -15,7 +18,6 @@ function* fetchTeachers() {
     console.log('error in fetchStudent saga:', error);
   }
 }
-
 function* fetchStudent(action) {
     console.log('fetchStudent:', action);
     const id = action.payload;
@@ -40,6 +42,18 @@ function* postBooking(action){
         console.log('error posting booking in postBooking saga:', error);
     }
 }
+
+function* fetchStudentBookings(action){
+    console.log('fetchStudentBookings:', action);
+    try{
+        const bookings = yield callStudentBookings(action.payload)
+        yield put({type:BOOKING_ACTIONS.SET_STUDENT_BOOKINGS_LIST, bookings})
+    }catch(error){
+        console.log('error fetching student bookings:', error);
+    } 
+}
+
+// TEACHER ACTIONS
 
 function* fetchPendingBookings(action){
     console.log('fetchPendingBookings:', action);
@@ -116,6 +130,7 @@ function* personSaga() {
   yield takeLatest(BOOKING_ACTIONS.UPDATE_BOOKING_ACCEPT, updateBookingAccept);
   yield takeLatest(BOOKING_ACTIONS.UPDATE_BOOKING_REJECT, updateBookingReject);
   yield takeLatest(BOOKING_ACTIONS.FETCH_BOOKINGS_LIST, fetchAcceptedBookings);
+  yield takeLatest(BOOKING_ACTIONS.FETCH_STUDENT_BOOKINGS_LIST, fetchStudentBookings);
 }
 
 

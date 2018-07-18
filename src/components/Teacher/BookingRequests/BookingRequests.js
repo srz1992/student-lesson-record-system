@@ -129,7 +129,7 @@ class BookingRequests extends Component {
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                    {this.props.booking.booking.bookingList.map(request => (
+                    {this.props.booking.booking.bookingList.length!==0 && this.props.booking.booking.bookingList.map(request => (
                     <TableRow key={request.id}>
                         <TableCell>{request.student_id}</TableCell>
                         <TableCell>{request.name}</TableCell>
@@ -140,10 +140,21 @@ class BookingRequests extends Component {
                         <TableCell><Button onClick={()=>this.rejectBooking(request.id, this.props.user.secondId)}>Reject</Button></TableCell>
 
                     </TableRow>))}
+                    {this.props.booking.booking.bookingList.length===0 && 
+                    <TableRow >
+                    <TableCell> You have no booking requests</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+
+                </TableRow>}
                   </TableBody>
               </Table>
-              <pre>{JSON.stringify(this.props.user)}</pre>
-              <pre>{JSON.stringify(this.props.booking)}</pre>
+              {/* <pre>{JSON.stringify(this.props.user)}</pre>
+              <pre>{JSON.stringify(this.props.booking)}</pre> */}
           </Paper>
 
         </div>

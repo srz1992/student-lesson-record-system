@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/:id', (req, res) => {
     console.log('in get call for lesson records:', req.params);
     const student_id = req.params.id;
-    const queryText = `SELECT record.*, teacher.name as teacher_name FROM record JOIN teacher on record.teacher_id = teacher.id WHERE student_id=$1 ORDER BY record.date DESC, record.time DESC;`;
+    const queryText = `SELECT record.*, teacher.name as teacher_name FROM record JOIN teacher on record.teacher_id = teacher.id WHERE student_id=$1 ORDER BY record.date DESC, record.time DESC, record.id;`;
     pool.query(queryText, [student_id])
     .then((result)=>{
         console.log('retrieved lesson records from database');

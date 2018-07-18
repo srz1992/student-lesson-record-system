@@ -22,7 +22,8 @@ import { LESSON_ACTIONS } from '../../../redux/actions/lessonActions';
 const mapStateToProps = state => ({
   user: state.user,
   student: state.person,
-  lessons: state.lessons
+  lessons: state.lessons,
+  targetLesson: state.lessons.lessons.targetLesson
 });
 
 const styles = theme => ({
@@ -199,23 +200,23 @@ class LessonRecord extends Component {
     })
   }
   
-  updateLessonRecord = async (recordToEdit) =>{
-    console.log('in updateLessonRecord with:', recordToEdit);
-    this.setState({
+  updateLessonRecord = async () =>{
+    await this.setState({
       ...this.state,
       editHidden: true,
       recordToEdit: {
         id: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].id,
         student_id: this.props.targetStudent,
-        strengths: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths,
-        points_of_improvement: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement,
+        strengths: this.state.recordToEdit.strengths,
+        points_of_improvement: this.state.recordToEdit.points_of_improvement,
         vocab: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab,
         phrases: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases,
-        comments: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments
+        comments: this.state.recordToEdit.comments
     }
     })
     const action = {type:LESSON_ACTIONS.UPDATE_LESSON_RECORD, payload: this.state.recordToEdit};
     this.props.dispatch(action);
+    
   }
 
   render() {
@@ -227,14 +228,14 @@ class LessonRecord extends Component {
         <div>
           {this.state.editHidden && <Paper>
               <h1>Lesson Record</h1>
-              <p>Sean with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
-              <p>{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              <p>{this.props.student.studentProfile.name} with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              {/* <p>{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p> */}
               <p>Date: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].date.split('T')[0]}</p>
               <p>Time: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].time}</p>
               <p>Strengths: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths}</p>
               <p>Points of Improvement: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement}</p>
-              <p>Vocabulary:{this.state.recordToEdit.vocab.map( (word,i) => <span key={i}>{i+1}. {word}&emsp;</span>)}</p>
-              <div>Phrases: {this.state.recordToEdit.phrases.map( (phrase, i) =><p key={i}>{i+1}. {phrase}</p> )}</div>
+              <p>Vocabulary:{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab.map( (word,i) => <span key={i}>{i+1}. {word}&emsp;</span>)}</p>
+              <div>Phrases: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases.map( (phrase, i) =><p key={i}>{i+1}. {phrase}</p> )}</div>
               <p>Comments: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments}</p>
               <Button onClick={()=>this.toggleEdit()}>Edit</Button>
           </Paper>}
@@ -259,7 +260,7 @@ class LessonRecord extends Component {
               <div><label>Comments: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('comments')} multiline rowsMax="2" defaultValue={this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments} /></label></div>
 
 
-            <Button onClick={()=>{this.updateLessonRecord(this.state.recordToEdit);}}>Update</Button>
+            <Button onClick={()=>{this.updateLessonRecord();}}>Update</Button>
             </Paper>}
         </div>
       );

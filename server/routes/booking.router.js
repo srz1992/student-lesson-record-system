@@ -32,6 +32,22 @@ router.get('/student/:id', (req,res)=>{
    })
 })
 
+router.get('/student/bookings/:id', (req,res)=>{
+    console.log('in get call api/booking/student/bookings/:id for student with id:', req.params.id);
+    const student_id = req.params.id;
+    const queryText = `SELECT booking.*, teacher.name FROM booking JOIN teacher ON teacher_id = teacher.id WHERE student_id=$1 AND status='Accepted' ORDER BY requested_lesson_date, requested_lesson_time;`
+    pool.query(queryText, [student_id])
+    .then((result)=>{
+        console.log('retrieved student bookings');
+        res.send(result.rows);
+    })
+    .catch((error)=>{
+        console.log('error retrieving student bookings:', error);
+        res.sendStatus(500)
+    })
+})
+
+
 router.get('/teacher/:id', (req, res)=>{
     console.log('in get call api/booking/teacher/:id for targetTeacher');
     const user_id = req.params.id;
@@ -91,6 +107,7 @@ router.get('/:id', (req, res)=>{
     })
 })
 
+
 router.post('/', (req, res) =>{
     console.log('in post call for api/booking with req.body:', req.body);
     const student_id = req.body.student_id;
@@ -128,7 +145,7 @@ router.put('/accept/:id', (req, res)=>{
         (booking_id, student_id, teacher_id, date, time, strengths, points_of_improvement, vocab, phrases, comments)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
         
-        pool.query(queryText, [booking_id, student_id, teacher_id, date, time, '', '', '{""}', '{""}',''])
+        pool.query(queryText, [booking_id, student_id, teacher_id, date, time, '', '', '{}', '{}',''])
         .then((result)=>{
             console.log('successfully updating booking status and created lesson record');
             res.sendStatus(201);

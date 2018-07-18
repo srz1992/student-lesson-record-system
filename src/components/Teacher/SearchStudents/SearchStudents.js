@@ -10,7 +10,6 @@ import StudentProfile from './StudentProfile'
 import {USER_ACTIONS} from '../../../redux/actions/userActions';
 import {PERSON_ACTIONS} from '../../../redux/actions/personActions';
 import {LESSON_ACTIONS} from '../../../redux/actions/lessonActions';
-import { triggerLogout } from '../../../redux/actions/loginActions';
 
 // import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -73,16 +72,16 @@ class SearchStudents extends Component {
 
   getProfileAndRecords = (id)=>{
     console.log('in getProfileAndRecords with id:', id);
+    const action = {type: LESSON_ACTIONS.SET_TARGET_LESSON, payload: 0};
+    this.props.dispatch(action);
     this.getStudentById(id);
     this.getStudentRecordsById(id);
   }
   
 changeTargetLesson = (newIndex)=>{
   console.log('in changeTargetLesson with newIndex:', newIndex);
-  this.setState({
-    ...this.state,
-    targetLesson: newIndex
-  })
+  const action = {type:LESSON_ACTIONS.SET_TARGET_LESSON, payload: newIndex}
+  this.props.dispatch(action);
   
 }
   
@@ -103,7 +102,7 @@ changeTargetLesson = (newIndex)=>{
           <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
           {this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}
           {this.props.student.studentProfile.studentCalled && this.props.lessons.lessonRecords.map((number,i) => <span key={i}><button onClick={()=>this.changeTargetLesson(i)}>{this.props.lessons.lessonRecords.length-i}</button></span>)}
-          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent} targetLesson={this.state.targetLesson}/>}
+          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent}/>}
         </div>
       );
     }

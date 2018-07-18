@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { LESSON_ACTIONS } from '../actions/lessonActions';
 
-const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: false, errorDisplay: false}, action) => {
+const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: false, targetLesson: 0, errorDisplay: false}, action) => {
   switch (action.type) {
+    case LESSON_ACTIONS.SET_TARGET_LESSON:
+        return {...state, targetLesson: action.payload}
     case LESSON_ACTIONS.SET_LESSON_RECORDS:
         if (action.lessons.length > 0 && action.lessons[0].teacher_name){
                 console.log('setting lessonRecords:', action.lessons);
@@ -55,11 +57,6 @@ const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: fal
   }
 };
 
-const blah = (state = {}, action)=>{
-    return state;
-}
-
 export default combineReducers({
   lessons,
-  blah
 });

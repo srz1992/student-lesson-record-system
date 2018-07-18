@@ -13,6 +13,8 @@ function* fetchLessons(action){
 }
 
 function* updateLessonRecord(action){
+    console.log('action:', action);
+    
     const student_id = action.payload.student_id;
     try{
         yield putLesson(action.payload);
