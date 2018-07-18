@@ -138,31 +138,25 @@ class LessonRecord extends Component {
     }
   }
   
-  handleVocabDelete = (word, newVocab) => {
-    console.log('handleVocabDelete. word:', word, 'newVocab:', newVocab);
-    const listToSave = newVocab.filter(vocab => vocab !==word);
-    console.log('listToSave:', listToSave);
+  handleVocabDelete = (word) => {
+    console.log('handleVocabDelete. word:', word);
+    const action = {type:LESSON_ACTIONS.DELETE_VOCAB, payload: {word: word, targetLesson: this.props.targetLesson }}
+    this.props.dispatch(action);
 
-    this.setState({
-      ...this.state,
-      recordToEdit: {
-        ...this.state.recordToEdit,
-        vocab: listToSave
-      }
-    })
+    // this.setState({
+    //   ...this.state,
+    //   recordToEdit: {
+    //     ...this.state.recordToEdit,
+    //     vocab: listToSave
+    //   }
+    // })
   }
 
-  handlePhraseDelete = (phrase, newPhrase) =>{
-    console.log('handlePhraseDelete. phrase:', phrase, 'newPhrase:', newPhrase);
-    const listToSave = newPhrase.filter(sentence => sentence !==phrase);
-    console.log('listToSave:', listToSave);
-    this.setState({
-      ...this.state,
-      recordToEdit:{
-        ...this.state.recordToEdit,
-        phrases: listToSave
-      }
-    })
+  handlePhraseDelete = (phrase) =>{
+    console.log('handlePhraseDelete. phrase:', phrase);
+    const action = {type:LESSON_ACTIONS.DELETE_PHRASE, payload: {phrase: phrase, targetLesson: this.props.targetLesson}}
+    this.props.dispatch(action);
+    
   }
 
   handleVocabSubmit = (vocabToSubmit) =>{
@@ -171,18 +165,20 @@ class LessonRecord extends Component {
     const action = {type: LESSON_ACTIONS.ADD_LESSON_VOCAB, payload: {targetLesson: this.props.targetLesson, vocabToSubmit: vocabToSubmit}}
     this.props.dispatch(action)
 
+    this.setState({
+      ...this.state,
+      vocabToSubmit: ''
+    })
   }
 
   handlePhraseSubmit = (phraseToSubmit)=>{
     console.log('in handlePhraseSubmit with:', phraseToSubmit);
-    const newPhraseArray = this.state.recordToEdit.phrases;
-    newPhraseArray.push(phraseToSubmit);
+
+    const action = {type: LESSON_ACTIONS.ADD_LESSON_PHRASE, payload: {targetLesson: this.props.targetLesson, phraseToSubmit: phraseToSubmit}}
+    this.props.dispatch(action);
+
     this.setState({
       ...this.state,
-      recordToEdit:{
-        ...this.state.recordToEdit,
-        phrases: newPhraseArray
-      },
       phraseToSubmit: ''
     })
   }
@@ -205,8 +201,6 @@ class LessonRecord extends Component {
   
   updateLessonRecord = async (recordToEdit) =>{
     console.log('in updateLessonRecord with:', recordToEdit);
-    const action = {type:LESSON_ACTIONS.UPDATE_LESSON_RECORD, payload: recordToEdit};
-    this.props.dispatch(action);
     this.setState({
       ...this.state,
       editHidden: true,
@@ -220,6 +214,8 @@ class LessonRecord extends Component {
         comments: this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments
     }
     })
+    const action = {type:LESSON_ACTIONS.UPDATE_LESSON_RECORD, payload: this.state.recordToEdit};
+    this.props.dispatch(action);
   }
 
   render() {

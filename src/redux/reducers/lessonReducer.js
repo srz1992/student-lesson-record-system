@@ -22,6 +22,34 @@ const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: fal
         let fullLessonRecordsArray = [...state.lessonRecords];
         fullLessonRecordsArray.splice(targetLessonIndex,1,targetLessonOriginal)
         return {...state, lessonRecords: fullLessonRecordsArray}
+    case LESSON_ACTIONS.ADD_LESSON_PHRASE:
+        let targetLessonIndexPhrases = action.payload.targetLesson;
+        let targetLessonOriginalPhrases = state.lessonRecords[targetLessonIndexPhrases];
+        let newPhraseList = [...state.lessonRecords[targetLessonIndexPhrases].phrases]
+        let newPhrase = action.payload.phraseToSubmit;
+        newPhraseList.push(newPhrase);
+        targetLessonOriginalPhrases.phrases = newPhraseList;
+        let fullLessonRecordsArrayPhrases = [...state.lessonRecords];
+        fullLessonRecordsArrayPhrases.splice(targetLessonIndexPhrases,1,targetLessonOriginalPhrases)
+        return {...state, lessonRecords: fullLessonRecordsArrayPhrases}
+    case LESSON_ACTIONS.DELETE_VOCAB:
+        let targetLessonIndexDelete = action.payload.targetLesson;
+        let targetLessonOriginalDelete = state.lessonRecords[targetLessonIndexDelete]; 
+        let newVocabListDelete = [...state.lessonRecords[targetLessonIndexDelete].vocab];   
+        let vocabToDelete = action.payload.word;    
+        targetLessonOriginalDelete.vocab = newVocabListDelete.filter(word => word !== vocabToDelete);
+        fullLessonRecordsArray = [...state.lessonRecords];
+        fullLessonRecordsArray.splice(targetLessonIndexDelete,1,targetLessonOriginalDelete)
+        return {...state, lessonRecords: fullLessonRecordsArray}
+    case LESSON_ACTIONS.DELETE_PHRASE:
+        targetLessonIndex = action.payload.targetLesson;
+        targetLessonOriginal = state.lessonRecords[targetLessonIndex];
+        newPhraseList = [...state.lessonRecords[targetLessonIndex].phrases];  
+        let phraseToDelete = action.payload.phrase;
+        targetLessonOriginal.phrases = newPhraseList.filter(word => word !== phraseToDelete);
+        fullLessonRecordsArray = [...state.lessonRecords];
+        fullLessonRecordsArray.splice(targetLessonIndex, 1, targetLessonOriginal);
+        return {...state, lessonRecords: fullLessonRecordsArray}
     default:
       return state;
   }
