@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { put, takeLatest } from 'redux-saga/effects';
+import {BOOKING_ACTIONS} from '../actions/bookingActions';
 
 export function callTeachers() {
   return axios.get(`api/booking/teachers`)
@@ -9,7 +11,6 @@ export function callTeachers() {
 
 export function callStudent(user_id) {
   console.log('callStudent user_id:', user_id);
-  
   return axios.get(`api/booking/student/${user_id}`)
   .then(response => {
     console.log('response.data:', response.data);
@@ -35,14 +36,12 @@ export function callTeacherId(user_id){
 // sends a booking request for student?
 export function sendBooking(booking){
   console.log('in sendBooking with:', booking);
+  
   return axios.post('api/booking/', booking)
   .then((response)=>{
     console.log('posted booking in sendBooking:', response);
   })
-  .catch((error)=>{
-    console.log('error posting booking in sendBooking:', error); 
-  })
-}
+  }
 
 // this function is for getting the pending bookings only
 export function callBookings(teacher_id){
@@ -106,5 +105,4 @@ export function callStudentBookings(student_id){
   .catch((error)=>{
     throw error.response || error
   })
-  
 }

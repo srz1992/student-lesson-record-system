@@ -8,6 +8,7 @@ function* fetchLessons(action){
         const lessons = yield callLessons(student_id);
         yield put({type:LESSON_ACTIONS.SET_LESSON_RECORDS, lessons})
     }catch(error){
+        yield put({type:LESSON_ACTIONS.FETCH_LESSON_FAILURE});
         console.log('error in fetchLessons in lessonSaga:', error);
     }
 }
@@ -25,7 +26,6 @@ function* updateLessonRecord(action){
 }
 
 function* lessonSaga() {
-//   yield takeLatest(PERSON_ACTIONS.FETCH_STUDENT, fetchStudent);
      yield takeLatest(LESSON_ACTIONS.FETCH_LESSON_RECORDS, fetchLessons);
      yield takeLatest(LESSON_ACTIONS.UPDATE_LESSON_RECORD, updateLessonRecord);
 }

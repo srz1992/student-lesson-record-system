@@ -140,8 +140,8 @@ class BookedLessons extends Component {
                     </TableRow>))}
                   </TableBody>
               </Table>
-              <pre>{JSON.stringify(this.props.user)}</pre>
-              <pre>{JSON.stringify(this.props.booking)}</pre>
+              {/* <pre>{JSON.stringify(this.props.user)}</pre>
+              <pre>{JSON.stringify(this.props.booking)}</pre> */}
           </Paper>
 
         </div>

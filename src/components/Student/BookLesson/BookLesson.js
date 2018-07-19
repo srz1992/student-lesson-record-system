@@ -15,6 +15,9 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import Select from '@material-ui/core/Select';
 
+import SuccessSnackbar from '../../Snackbars/SuccessSnackbar';
+import FailureSnackbar from '../../Snackbars/FailureSnackbar';
+
 const mapStateToProps = state => ({
   user: state.user,
   booking: state.booking
@@ -100,13 +103,6 @@ class BookLesson extends Component {
         })
   }
 
-//   getStudentProfileId = (user_id) => {
-//     console.log('user_id:', user_id);
-//     const action = {type:BOOKING_ACTIONS.FETCH_STUDENT_ID, payload: user_id}
-//     this.props.dispatch(action);
-//     return
-//   }
-
   postBookingRequest = (booking) =>{
     console.log('in postBookingRequest with booking:', booking);
     const action = {type: BOOKING_ACTIONS.POST_BOOKING, payload: booking}
@@ -165,12 +161,13 @@ class BookLesson extends Component {
         <div>
         </div>
         <Button onClick={()=>this.postBookingRequest(this.state.booking)}>Submit</Button>
-
-        <pre>reducer:{JSON.stringify(this.props.booking.teacherList)}</pre>
+        {/* <pre>reducer:{JSON.stringify(this.props.booking.teacherList)}</pre>
         <pre>state:{JSON.stringify(this.state)}</pre>
-        <pre>user:{JSON.stringify(this.props.user)}</pre>
+        <pre>user:{JSON.stringify(this.props.user)}</pre> */}
 
         </Paper>
+        {this.props.booking.booking.success && <SuccessSnackbar reducerName={"booking"}/>}
+        {this.props.booking.booking.failure && <FailureSnackbar reducerName={"booking"}/>}
         </div>
       );
     }

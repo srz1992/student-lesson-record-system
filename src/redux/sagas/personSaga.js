@@ -6,18 +6,24 @@ import { callStudent, putStudent, callTeacher, putTeacher } from '../requests/pe
 function* fetchStudent(action) {
   try {
     const student = yield callStudent(action.payload);
-    yield put({
-      type: PERSON_ACTIONS.SET_STUDENT,
-      student,
-    });
+    console.log('student is:', student);
+    if (student !== ''){
+      yield put({
+        type: PERSON_ACTIONS.SET_STUDENT,
+        student,
+      });
+    }
+    else {
+      yield put({
+        type: PERSON_ACTIONS.FETCH_STUDENT_FALIURE
+      })
+    }
     
   } catch (error) {
+    yield put({
+      type: PERSON_ACTIONS.FETCH_STUDENT_FALIURE
+    })
     console.log('error in fetchStudent saga:', error);
-    
-    // yield put({
-    //   type: USER_ACTIONS.USER_FETCH_FAILED,
-    //   message: error.data || "FORBIDDEN",
-    // });
   }
 }
 
@@ -44,7 +50,9 @@ function* fetchTeacher(action){
   }
   catch(error){
     console.log('error in fetchTeacher saga:', error);
-    
+    yield put({
+      type: PERSON_ACTIONS.FETCH_TEACHER_FAILURE
+    })
   }
 }
 

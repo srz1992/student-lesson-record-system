@@ -5,13 +5,15 @@ const router = express.Router();
 /**
  * GET route template
  */
+
+
 router.get('/student/:id', (req, res) => {
     console.log('in get call for student profile:', req.params);
     const id = req.params.id;
     const queryText = `SELECT * FROM student WHERE id=$1`;
     pool.query(queryText, [id])
     .then((result)=>{
-        console.log('retrieved student profile from database');
+        console.log('retrieved student profile from database:', result.rows);
         res.send(...result.rows)
     }).catch((error)=>{
         console.log('error retrieving student profile:', error);

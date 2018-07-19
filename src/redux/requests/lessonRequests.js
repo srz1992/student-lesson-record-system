@@ -6,8 +6,6 @@ export function callLessons(student_id){
     .then((response)=>{
         console.log('got lesson records:', response.data);
         return response.data
-    }).catch((error)=>{
-        console.log('in callLessons error getting lesson records:', error);
     })
 }
 

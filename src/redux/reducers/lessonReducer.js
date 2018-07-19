@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
 import { LESSON_ACTIONS } from '../actions/lessonActions';
 
-const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: false, targetLesson: 0, errorDisplay: false}, action) => {
+const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: false, targetLesson: 0, failure: false}, action) => {
   switch (action.type) {
+    case LESSON_ACTIONS.FETCH_LESSON_RECORD_FAILURE_FALSE:
+        return {...state, failure: false}
+    case LESSON_ACTIONS.FETCH_LESSON_FAILURE:
+        return {...state, failure: true}
     case LESSON_ACTIONS.SET_TARGET_LESSON:
         return {...state, targetLesson: action.payload}
     case LESSON_ACTIONS.SET_LESSON_RECORDS:

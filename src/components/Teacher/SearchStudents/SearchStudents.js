@@ -16,6 +16,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import LessonRecord from './LessonRecord';
 
+import FailureSnackbar from '../../Snackbars/FailureSnackbar';
+
 const mapStateToProps = state => ({
   user: state.user,
   student: state.person,
@@ -101,8 +103,11 @@ changeTargetLesson = (newIndex)=>{
           <label>Student ID:&emsp;<TextField type="number" onChange={this.handleInputChangeFor('targetStudent')} /></label>
           <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
           {this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}
-          {this.props.student.studentProfile.studentCalled && this.props.lessons.lessonRecords.map((number,i) => <span key={i}><button onClick={()=>this.changeTargetLesson(i)}>{this.props.lessons.lessonRecords.length-i}</button></span>)}
-          {this.props.student.studentProfile.studentCalled && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent}/>}
+          {this.props.lessons.recordsObtained && this.props.lessons.lessonRecords.map((number,i) => <span key={i}><button onClick={()=>this.changeTargetLesson(i)}>{this.props.lessons.lessonRecords.length-i}</button></span>)}
+          {this.props.lessons.recordsObtained && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent}/>}
+          {this.props.lessons.failure && <FailureSnackbar reducerName={"lesson"}/>}
+          {this.props.student.studentProfile.failure && <FailureSnackbar reducerName={"person"}/>}
+
         </div>
       );
     }

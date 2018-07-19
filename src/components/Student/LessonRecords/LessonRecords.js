@@ -61,6 +61,8 @@ class LessonRecords extends Component {
   getStudentRecordsById = (id)=>{
       let action = {type: LESSON_ACTIONS.FETCH_LESSON_RECORDS, payload: this.props.user.secondId}
       this.props.dispatch(action);
+      let secondAction = {type: PERSON_ACTIONS.FETCH_STUDENT, payload: this.props.user.secondId}
+      this.props.dispatch(secondAction)
   }
   
 changeTargetLesson = (newIndex)=>{

@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
 import { BOOKING_ACTIONS } from '../actions/bookingActions';
 
-const booking = (state = {student_id: '', bookingList:[]}, action) => {
+const booking = (state = {student_id: '', bookingList:[], success:false, failure: false}, action) => {
   switch (action.type) {
-    case BOOKING_ACTIONS.SET_BOOKING:
-      return {...state} || state;
+    case BOOKING_ACTIONS.BOOKING_SUCCESS:
+      return {...state, success:true} || state;
+    case BOOKING_ACTIONS.BOOKING_FAILURE:
+        return {...state, failure:true} || state;
+    case BOOKING_ACTIONS.BOOKING_RESET:
+        return {...state, success: false, failure: false}
     case BOOKING_ACTIONS.SET_STUDENT_ID:
         console.log('here is the state of booking:');
         return {...state, student_id: action.student}

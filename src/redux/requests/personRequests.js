@@ -6,7 +6,6 @@ export function callStudent(id) {
     .then(response => {
       console.log('response.data:', response.data);
       return response.data})
-    .catch((error) => { throw error.response || error; });
 }
 
 export function putStudent(student) {
@@ -20,8 +19,6 @@ export function callTeacher(id){
     .then(response=>{
       console.log('response.data:', response.data);
       return response.data})
-    .catch((error) =>{
-      throw error.response || error;})
 }
 
 export function putTeacher(teacher){

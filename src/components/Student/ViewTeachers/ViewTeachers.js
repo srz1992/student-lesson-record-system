@@ -15,6 +15,9 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import Select from '@material-ui/core/Select';
 
+import FailureSnackbar from '../../Snackbars/FailureSnackbar';
+
+
 const mapStateToProps = state => ({
   user: state.user,
   teacher: state.person,
@@ -138,6 +141,8 @@ class ViewTeachers extends Component {
         </Select></label></div>
           <Button onClick={()=>this.getTeacherById(this.state.targetTeacher)}>Search</Button>
           {this.props.teacher.teacherProfile.teacherCalled && <TeacherProfile targetTeacher={this.state.targetTeacher} getTeacherById={this.getTeacherById} editTeacher={this.editTeacher} />}
+          {this.props.teacher.teacherProfile.failure && <FailureSnackbar reducerName={"person"}/>}
+
         </div>
       );
     }

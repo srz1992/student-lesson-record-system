@@ -79,3 +79,11 @@ li a:hover {
     text-decoration: underline;
     color: #eee;
 }
+
+.snackbar-success{
+    background-color: #5CFF00;
+}
+
+.snackbar-error{
+    background-color: #FE6847;
+}

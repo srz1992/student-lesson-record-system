@@ -37,8 +37,10 @@ function* postBooking(action){
     const booking = action.payload;
     try{
         yield sendBooking(booking);
+        yield put({type: BOOKING_ACTIONS.BOOKING_SUCCESS})
     }
     catch(error){
+        yield put({type: BOOKING_ACTIONS.BOOKING_FAILURE});
         console.log('error posting booking in postBooking saga:', error);
     }
 }
