@@ -25,6 +25,11 @@ const StudentNav = () => (
           View Teachers
           </Link>
         </li>
+        <li>
+            <Link to ="/lessonRecords">
+          Lesson Records
+          </Link>
+        </li>
         
       </ul>
     </div>

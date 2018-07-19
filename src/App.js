@@ -28,7 +28,7 @@ import StudentHome from './components/Student/StudentHome/StudentHome';
 import StudentBookedLessons from './components/Student/BookedLessons/BookedLessons';
 import BookLesson from './components/Student/BookLesson/BookLesson';
 import StudentViewTeachers from './components/Student/ViewTeachers/ViewTeachers';
-
+import LessonRecords from './components/Student/LessonRecords/LessonRecords'
 
 import './styles/main.css';
 
@@ -109,6 +109,10 @@ const App = () => (
         <Route
           path="/studentViewTeachers"
           component={StudentViewTeachers}
+        />
+        <Route 
+          path="/lessonRecords"
+          component={LessonRecords}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

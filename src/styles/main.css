@@ -1,6 +1,6 @@
 body {
     font-family: 'Sunflower', sans-serif;
-
+    background-color: #FAFAFA;
 }
 
 .instructions h1 {
@@ -9,9 +9,9 @@ body {
 }
 
 .instructions {
-    background-color: #00acb0;
+    background-color: #0994FF;
     padding: 5px;
-    color: #ece7e7;
+    color: #FFFFFF;
 }
 
 form .default {
@@ -48,9 +48,10 @@ input[type="submit"] {
 }
 
 .navbar {
-  background-color: #00acb0;
+  background-color: #0994FF;
   width: 100%;
   border-radius: 0px;
+  color: #FFFFFF;
 }
 
 ul {
