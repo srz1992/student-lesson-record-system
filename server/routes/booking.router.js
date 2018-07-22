@@ -35,7 +35,7 @@ router.get('/student/:id', (req,res)=>{
 router.get('/student/bookings/:id', (req,res)=>{
     console.log('in get call api/booking/student/bookings/:id for student with id:', req.params.id);
     const student_id = req.params.id;
-    const queryText = `SELECT booking.*, teacher.name FROM booking JOIN teacher ON teacher_id = teacher.id WHERE student_id=$1 AND status='Accepted' ORDER BY requested_lesson_date, requested_lesson_time;`
+    const queryText = `SELECT booking.*, teacher.name FROM booking JOIN teacher ON teacher_id = teacher.id WHERE student_id=$1 AND status='Accepted' ORDER BY requested_lesson_date DESC, requested_lesson_time DESC;`
     pool.query(queryText, [student_id])
     .then((result)=>{
         console.log('retrieved student bookings');
@@ -62,7 +62,7 @@ router.get('/teacher/:id', (req, res)=>{
 router.get('/:id', (req, res)=>{
     console.log('in get call for api/booking to get bookings for teacher_id:', req.params.id);
     teacher_id = req.params.id;
-    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Pending' ORDER BY requested_lesson_date, requested_lesson_time;`
+    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Pending' ORDER BY requested_lesson_date DESC, requested_lesson_time DESC;`
     // 
     pool.query(queryText, [teacher_id])
     .then((result)=>{
@@ -78,7 +78,7 @@ router.get('/:id', (req, res)=>{
 router.get('/accepted/:id', (req, res)=>{
     console.log('in get call for api/booking to get bookings for teacher_id:', req.params.id);
     teacher_id = req.params.id;
-    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Accepted' ORDER BY requested_lesson_date, requested_lesson_time;`
+    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Accepted' ORDER BY requested_lesson_date DESC, requested_lesson_time DESC;`
     // 
     pool.query(queryText, [teacher_id])
     .then((result)=>{
@@ -94,7 +94,7 @@ router.get('/accepted/:id', (req, res)=>{
 router.get('/:id', (req, res)=>{
     console.log('in get call for api/booking to get bookings for teacher_id:', req.params.id);
     teacher_id = req.params.id;
-    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Pending';`
+    const queryText = `SELECT booking.*, student.name FROM booking JOIN student ON student_id = student.id WHERE teacher_id=$1 AND status='Pending' ORDER BY requested_lesson_date DESC, requested_lesson_time DESC;`
     // 
     pool.query(queryText, [teacher_id])
     .then((result)=>{

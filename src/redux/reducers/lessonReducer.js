@@ -3,6 +3,8 @@ import { LESSON_ACTIONS } from '../actions/lessonActions';
 
 const lessons = (state = {student_id: '', lessonRecords:[], recordsObtained: false, targetLesson: 0, failure: false}, action) => {
   switch (action.type) {
+    case LESSON_ACTIONS.RESET_RECORDS_OBTAINED:
+        return {...state, recordsObtained: false}
     case LESSON_ACTIONS.FETCH_LESSON_RECORD_FAILURE_FALSE:
         return {...state, failure: false}
     case LESSON_ACTIONS.FETCH_LESSON_FAILURE:

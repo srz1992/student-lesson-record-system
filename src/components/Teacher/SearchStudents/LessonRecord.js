@@ -227,20 +227,19 @@ class LessonRecord extends Component {
       content = (
         <div>
           {this.state.editHidden && <Paper>
-              <h1>Lesson Record</h1>
-              <p>{this.props.student.studentProfile.name} with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+              <h3>{this.props.student.studentProfile.name} with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</h3>
               {/* <p>{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p> */}
               <p>Date: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].date.split('T')[0]}</p>
               <p>Time: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].time}</p>
               <p>Strengths: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].strengths}</p>
               <p>Points of Improvement: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement}</p>
               <p>Vocabulary:{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab.map( (word,i) => <span key={i}>{i+1}. {word}&emsp;</span>)}</p>
-              <div>Phrases: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases.map( (phrase, i) =><p key={i}>{i+1}. {phrase}</p> )}</div>
+              <label>Phrases: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases.map( (phrase, i) =><p key={i}>{i+1}. {phrase}</p> )}</label>
               <p>Comments: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].comments}</p>
               <Button onClick={()=>this.toggleEdit()}>Edit</Button>
           </Paper>}
           {!this.state.editHidden && <Paper>
-            <p>Sean with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
+            <p>{this.props.student.studentProfile.name} with {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
               <p>{this.props.lessons.lessons.lessonRecords[this.props.targetLesson].teacher_name}</p>
               <p>Date: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].date.split('T')[0]}</p>
               <p>Time: {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].time}</p>
@@ -248,12 +247,12 @@ class LessonRecord extends Component {
               <div><label>Points of Improvement: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('points_of_improvement')} defaultValue={this.props.lessons.lessons.lessonRecords[this.props.targetLesson].points_of_improvement} /></label></div>
               <div><label>Vocabulary: &emsp;<form onSubmit={()=>this.handleVocabSubmit(this.state.vocabToSubmit)}><FormGroup row className="">
             {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].vocab.map((word,i) => <Chip key={i} label={word} className={classes.chip} onDelete={()=>this.handleVocabDelete(word,this.state.recordToEdit.vocab)} />)}
-            <TextField value={this.state.vocabToSubmit} onChange={this.handleVocabToSubmit} />
+            <TextField className="editTextField" value={this.state.vocabToSubmit} onChange={this.handleVocabToSubmit} />
             <Button type="submit" value="" >Add</Button>
             </FormGroup></form></label></div>
             <div><label>Phrases: &emsp;<form onSubmit={()=>this.handlePhraseSubmit(this.state.phraseToSubmit)}><FormGroup row className="">
             {this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases.map((phrase,i) => <Chip key={i} label={phrase} className={classes.chip} onDelete={()=>this.handlePhraseDelete(phrase,this.state.recordToEdit.phrases)} />)}
-            <TextField value={this.state.phraseToSubmit} onChange={this.handlePhraseToSubmit} />
+            <TextField className="editTextField" value={this.state.phraseToSubmit} onChange={this.handlePhraseToSubmit} />
             <Button type="submit" value="" >Add</Button>
             </FormGroup></form></label></div>
               {/* <div><label>Phrases: &emsp;<TextField onChange={this.handleUpdateInputChangeFor('phrases')} defaultValue={this.props.lessons.lessons.lessonRecords[this.props.targetLesson].phrases} /></label></div> */}

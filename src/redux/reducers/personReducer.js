@@ -7,7 +7,10 @@ const studentProfile = (state = {studentCalled: false, failure: false}, action) 
       return {...state, failure: true} || state;
     case PERSON_ACTIONS.STUDENT_RESET:
       return {...state, failure: false}
-    case PERSON_ACTIONS.SET_STUDENT:
+    
+    case PERSON_ACTIONS.STUDENT_CALLED_RESET:
+      return {...state, studentCalled: false}
+      case PERSON_ACTIONS.SET_STUDENT:
       console.log('action.student:', action.student);
       console.log('date:', action.student.date_of_birth);
       return {...action.student, studentCalled: true} || state;

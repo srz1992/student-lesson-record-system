@@ -20,11 +20,8 @@ const mapStateToProps = state => ({
 const styles = theme => ({
     container: {
       display: 'flex',
-      flexWrap: 'wrap',
     },
     profile: {
-        width: 350,
-        height: "auto",
         textAlign: "center",
     },
 
@@ -32,6 +29,7 @@ const styles = theme => ({
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
       width: 200,
+      paddingLeft: 5
     },
     menu: {
         width: 200,
@@ -74,7 +72,7 @@ class StudentProfile extends Component {
     if (this.props.user.userName && this.props.user.userType === 'teacher') {
       content = (
           <div>
-          <Paper className={classes.profile}>
+          <Paper className={classes.profile} className="studentProfile">
             <h1>Student Profile</h1>
             {/* <pre>{JSON.stringify(this.props.student)}</pre> */}
             <p>ID: {this.props.student.studentProfile.id}</p>

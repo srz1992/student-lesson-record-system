@@ -117,7 +117,7 @@ class BookLesson extends Component {
     if (this.props.user.userName && this.props.user.userType === 'student') {
       content = (
         <div>
-        <h1>Book a Lesson</h1>
+        <h1>Request a Lesson Booking</h1>
         <Paper>
             <h3>Please enter your desired date, time, and teacher</h3>
             <div><label>Teacher:&emsp;<Select

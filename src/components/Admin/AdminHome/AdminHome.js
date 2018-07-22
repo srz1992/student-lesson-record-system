@@ -5,6 +5,8 @@ import AdminNav from '../../../components/Nav/AdminNav';
 
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 import { triggerLogout } from '../../../redux/actions/loginActions';
+import { PERSON_ACTIONS } from '../../../redux/actions/personActions';
+import { LESSON_ACTIONS } from '../../../redux/actions/lessonActions';
 
 
 const mapStateToProps = state => ({
@@ -23,6 +25,10 @@ class AdminHome extends Component {
   }
 
   logout = () => {
+    const action = {type:PERSON_ACTIONS.STUDENT_CALLED_RESET};
+    this.props.dispatch(action);
+    const secondAction = {type:LESSON_ACTIONS.RESET_RECORDS_OBTAINED};
+    this.props.dispatch(secondAction)
     this.props.dispatch(triggerLogout());
     // this.props.history.push('home');
   }

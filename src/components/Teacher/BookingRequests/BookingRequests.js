@@ -121,9 +121,9 @@ class BookingRequests extends Component {
                       <TableRow>
                           <TableCell>Student ID</TableCell>
                           <TableCell>Student Name</TableCell>
-                          <TableCell>Date</TableCell>
                           <TableCell>Requested Lesson Date</TableCell>
                           <TableCell>Requested Lesson Time</TableCell>
+                          <TableCell>Date of Request</TableCell>
                           <TableCell>Accept</TableCell>
                           <TableCell>Reject</TableCell>
                       </TableRow>
@@ -133,9 +133,9 @@ class BookingRequests extends Component {
                     <TableRow key={request.id}>
                         <TableCell>{request.student_id}</TableCell>
                         <TableCell>{request.name}</TableCell>
-                        <TableCell>{request.date_made.split('T')[0]}</TableCell>
                         <TableCell>{request.requested_lesson_date.split('T')[0]}</TableCell>
                         <TableCell>{request.requested_lesson_time}</TableCell>
+                        <TableCell>{request.date_made.split('T')[0]}</TableCell>
                         <TableCell><Button onClick={()=>this.acceptBooking(request.id, this.props.user.secondId)}>Accept</Button></TableCell>
                         <TableCell><Button onClick={()=>this.rejectBooking(request.id, this.props.user.secondId)}>Reject</Button></TableCell>
 

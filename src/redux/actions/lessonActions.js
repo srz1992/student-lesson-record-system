@@ -21,7 +21,7 @@ export const LESSON_ACTIONS = {
         
         // delete a vocab or phrase from a specific lesson in the reducer
         DELETE_VOCAB: 'DELETE_VOCAB',
-        DELETE_PHRASE: 'DELETE_PHRASE'
+        DELETE_PHRASE: 'DELETE_PHRASE',
 
-
+    RESET_RECORDS_OBTAINED: 'RESET_RECORDS_OBTAINED'
 }

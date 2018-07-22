@@ -18,6 +18,9 @@ import LessonRecord from './LessonRecord';
 
 import FailureSnackbar from '../../Snackbars/FailureSnackbar';
 
+import Grid from '@material-ui/core/Grid';
+
+
 const mapStateToProps = state => ({
   user: state.user,
   student: state.person,
@@ -96,25 +99,29 @@ changeTargetLesson = (newIndex)=>{
     if (this.props.user.userName && this.props.user.userType === 'teacher') {
       content = (
         <div>
+        <div className="profileAndLesson">
           {/* <pre>{JSON.stringify(this.props.student)}</pre> */}
-          <h1 id="welcome">
-            Search Students
-          </h1>
-          <label>Student ID:&emsp;<TextField type="number" onChange={this.handleInputChangeFor('targetStudent')} /></label>
-          <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
-          {this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}
-          {this.props.lessons.recordsObtained && this.props.lessons.lessonRecords.map((number,i) => <span key={i}><button onClick={()=>this.changeTargetLesson(i)}>{this.props.lessons.lessonRecords.length-i}</button></span>)}
-          {this.props.lessons.recordsObtained && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent}/>}
+          <TeacherNav className="header" />
+          <div className="search">
+            <h1 id="welcome">
+              Search Students
+            </h1>
+            <label>Student ID:&emsp;<TextField type="number" onChange={this.handleInputChangeFor('targetStudent')} /></label>
+            <Button onClick={()=>this.getProfileAndRecords(this.state.targetStudent)}>Search</Button>
+          </div>
+          <div>{this.props.student.studentProfile.studentCalled && <StudentProfile targetStudent={this.state.targetStudent}/>}</div>
+          <div className="lessonCounters">{this.props.lessons.recordsObtained && this.props.lessons.lessonRecords.map((number,i) => <span key={i}><button onClick={()=>this.changeTargetLesson(i)}>{this.props.lessons.lessonRecords.length-i}</button></span>)}</div>
+          <div className="lessonRecord">{this.props.lessons.recordsObtained && this.props.lessons.recordsObtained && <LessonRecord searchClicked={this.state.searchClicked} targetStudent={this.state.targetStudent}/>}</div>
           {this.props.lessons.failure && <FailureSnackbar reducerName={"lesson"}/>}
           {this.props.student.studentProfile.failure && <FailureSnackbar reducerName={"person"}/>}
 
+        </div>
         </div>
       );
     }
 
     return (
       <div>
-        <TeacherNav />
         { content }
       </div>
     );
